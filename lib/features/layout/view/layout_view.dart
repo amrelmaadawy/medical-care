@@ -1,5 +1,7 @@
+import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/features/history/view/history_view.dart';
 import 'package:medical_care/features/home/view/home_view.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class _LayoutViewState extends State<LayoutView> {
 
   final List<Widget> _screens = [
     HomeView(),
-    Container(),
+    HistoryView(),
     Container(),
     Container(),
     Container(),
@@ -44,7 +46,7 @@ class _LayoutViewState extends State<LayoutView> {
               selectedColor: kPrimryColor,
             ),
             SalomonBottomBarItem(
-              icon: Icon(Icons.timer_outlined, size: 6.6.sp),
+              icon: Icon(FontAwesomeIcons.clock, size: 6.6.sp),
               title: Text('السجل', style: TextStyle(fontSize: 3.5.sp)),
               selectedColor: kPrimryColor,
             ),
