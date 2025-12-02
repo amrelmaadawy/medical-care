@@ -1,5 +1,6 @@
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/features/home/view/home_view.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class _LayoutViewState extends State<LayoutView> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    Container(child: Text(' و قال له تعالي ادلعك يا ابن عمي و هوريك الي عمرك ما شوفته',style: TextStyle(fontSize: 10.sp),),),
+    HomeView(),
     Container(),
     Container(),
     Container(),
@@ -32,7 +33,7 @@ class _LayoutViewState extends State<LayoutView> {
       bottomNavigationBar: SizedBox(
         height: 10.h,
         child: SalomonBottomBar(
-          unselectedItemColor: kPrimryColor,
+          unselectedItemColor: kSubTextColor,
           backgroundColor: Colors.white,
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
@@ -43,22 +44,22 @@ class _LayoutViewState extends State<LayoutView> {
               selectedColor: kPrimryColor,
             ),
             SalomonBottomBarItem(
-              icon: Icon(Icons.assignment_outlined, size: 6.6.sp),
+              icon: Icon(Icons.timer_outlined, size: 6.6.sp),
               title: Text('السجل', style: TextStyle(fontSize: 3.5.sp)),
               selectedColor: kPrimryColor,
             ),
             SalomonBottomBarItem(
-              icon: Icon(Icons.shopping_basket_outlined, size: 6.6.sp),
+              icon: Icon(Icons.notifications_outlined, size: 6.6.sp),
               title: Text('التذكيرات', style: TextStyle(fontSize: 3.5.sp)),
               selectedColor: kPrimryColor,
             ),
             SalomonBottomBarItem(
-              icon: Icon(Icons.favorite_border_outlined, size: 6.6.sp),
+              icon: Icon(Icons.chat_bubble_outline, size: 6.6.sp),
               title: Text('المحادثات', style: TextStyle(fontSize: 3.5.sp)),
               selectedColor: kPrimryColor,
             ),
             SalomonBottomBarItem(
-              icon: Icon(Icons.menu, size: 6.6.sp),
+              icon: Icon(Icons.person_outline, size: 6.6.sp),
               title: Text('الملف الشخصي', style: TextStyle(fontSize: 3.5.sp)),
               selectedColor: kPrimryColor,
             ),
