@@ -9,5 +9,8 @@ const kGreenColor = Color(0xFF008236);
 const kRedColor = Color(0xFFfb2c36);
 const kSubTextColor = Color(0xFF4a5565);
 const kgreyHighlightColor = Color(0xFFf3f4f6);
+<<<<<<< HEAD
 const kgreyColor = Color(0xFFcbced4);
+=======
+>>>>>>> 76a4d9acb8678f1b244cfe9d9965c96dd3e2cc6a
 const kTextColor = Color(0xFF101828);
