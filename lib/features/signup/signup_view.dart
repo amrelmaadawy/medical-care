@@ -14,7 +14,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: استبدل الألوان التالية بألوانك الثابتة من ملف utils
+  
     const Color primaryColor = Color(0xFF2F80ED);
     const Color backgroundColor = Color(0xFFF7F9FC);
     const Color cardColor = Colors.white;
