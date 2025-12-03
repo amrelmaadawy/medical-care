@@ -3,6 +3,7 @@ import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/features/history/view/history_view.dart';
 import 'package:medical_care/features/home/view/home_view.dart';
+import 'package:medical_care/features/reminder/view/reminder_view.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _LayoutViewState extends State<LayoutView> {
   final List<Widget> _screens = [
     HomeView(),
     HistoryView(),
-    Container(),
+    ReminderView(),
     Container(),
     Container(),
   ];
