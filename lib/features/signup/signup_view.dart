@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:medical_care/features/layout/view/layout_view.dart';
 import '../signin/signin_view.dart';
 
 class SignUpView extends StatefulWidget {
@@ -14,7 +16,6 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-  
     const Color primaryColor = Color(0xFF2F80ED);
     const Color backgroundColor = Color(0xFFF7F9FC);
     const Color cardColor = Colors.white;
@@ -210,7 +211,14 @@ class _SignUpViewState extends State<SignUpView> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LayoutView(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
