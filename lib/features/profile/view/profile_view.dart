@@ -115,7 +115,7 @@ class ProfileView extends StatelessWidget {
       
               SizedBox(height: 40),
       
-              // -------------------- Menu Items --------------------
+             
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 1),
                 child: Column(
@@ -152,7 +152,7 @@ class ProfileView extends StatelessWidget {
                           iconColor: kSubTextColor,
                         ),
                         CustomDivider(),
-                
+                        
                         CustomCard(
                           icon: Icons.description_outlined,
                           title: 'الشروط والأحكام',

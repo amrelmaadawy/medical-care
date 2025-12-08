@@ -206,7 +206,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                 const SizedBox(height: 40),
 
-                // Login button
+                
                 SizedBox(
                   width: double.infinity,
                   height: 48,
