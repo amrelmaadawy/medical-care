@@ -1,4 +1,3 @@
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
@@ -6,9 +5,7 @@ import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 
 class StartDiagnosis extends StatelessWidget {
-  const StartDiagnosis({
-    super.key,
-  });
+  const StartDiagnosis({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +43,7 @@ class StartDiagnosis extends StatelessWidget {
                 ),
                 Text(
                   'قم بتحميل صورة طبيه للحصول علي تشخيص دقيق',
-                  style: TextStyle(
-                    color: kSubTextColor,
-                    fontSize: 3.5.sp,
-                  ),
+                  style: TextStyle(color: kSubTextColor, fontSize: 3.5.sp),
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -66,10 +60,7 @@ class StartDiagnosis extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       'ابدا التشخيص ',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 3.5.sp,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 3.5.sp),
                     ),
                   ),
                 ),

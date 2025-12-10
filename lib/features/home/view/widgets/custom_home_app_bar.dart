@@ -1,12 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
-  const CustomHomeAppBar({
-    super.key,
-  });
+  const CustomHomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

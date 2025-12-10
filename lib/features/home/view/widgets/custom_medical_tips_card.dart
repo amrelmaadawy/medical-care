@@ -4,7 +4,12 @@ import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 
 class CustomMedicalTipsCard extends StatelessWidget {
-  const CustomMedicalTipsCard({super.key, required this.icon, required this.title, required this.subTitle});
+  const CustomMedicalTipsCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subTitle,
+  });
   final IconData icon;
   final String title;
   final String subTitle;
@@ -26,11 +31,7 @@ class CustomMedicalTipsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(kDefBorderRadius - 5),
                 color: kHghtLightBlueColor,
               ),
-              child: Icon(
-                icon,
-                color: kPrimryColor,
-                size: 7.sp,
-              ),
+              child: Icon(icon, color: kPrimryColor, size: 7.sp),
             ),
             SizedBox(width: 3.w),
             Column(
@@ -41,7 +42,7 @@ class CustomMedicalTipsCard extends StatelessWidget {
                   style: TextStyle(color: kTextColor, fontSize: 4.sp),
                 ),
                 Text(
-                 subTitle,
+                  subTitle,
                   style: TextStyle(color: kSubTextColor, fontSize: 3.6.sp),
                 ),
               ],

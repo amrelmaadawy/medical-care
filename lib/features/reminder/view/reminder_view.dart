@@ -12,7 +12,7 @@ class ReminderView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(kDefPadding),
       child: Column(
-        children: [ 
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -28,8 +28,13 @@ class ReminderView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 30),
-          Expanded(child: ListView.separated(itemBuilder: (context,index)=>  ReminderItem(), separatorBuilder: (context,index)=>SizedBox(height: 1.h,), itemCount: 10))
-        
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) => ReminderItem(),
+              separatorBuilder: (context, index) => SizedBox(height: 1.h),
+              itemCount: 10,
+            ),
+          ),
         ],
       ),
     );

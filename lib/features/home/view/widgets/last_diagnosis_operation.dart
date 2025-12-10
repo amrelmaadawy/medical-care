@@ -1,13 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 
 class LastDiagnosisOperation extends StatelessWidget {
-  const LastDiagnosisOperation({
-    super.key,
-  });
+  const LastDiagnosisOperation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +31,7 @@ class LastDiagnosisOperation extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'منخفض',
-                      style: TextStyle(
-                        fontSize: 3.5.sp,
-                        color: kGreenColor,
-                      ),
+                      style: TextStyle(fontSize: 3.5.sp, color: kGreenColor),
                     ),
                   ),
                 ),
@@ -47,7 +41,7 @@ class LastDiagnosisOperation extends StatelessWidget {
               '٢٨ نوفمبر ٢٠٢٥ - ٠٩:٣٠ صباحاً',
               style: TextStyle(fontSize: 3.5.sp, color: kSubTextColor),
             ),
-            SizedBox(height: 1.h,),
+            SizedBox(height: 1.h),
             Row(
               children: [
                 Text(
@@ -60,7 +54,7 @@ class LastDiagnosisOperation extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height:4.sp),
+            SizedBox(height: 4.sp),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: kPrimryColor),
@@ -80,10 +74,7 @@ class LastDiagnosisOperation extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'عرض التفاصيل',
-                  style: TextStyle(
-                    color: kPrimryColor,
-                    fontSize: 3.5.sp,
-                  ),
+                  style: TextStyle(color: kPrimryColor, fontSize: 3.5.sp),
                 ),
               ),
             ),
@@ -93,4 +84,3 @@ class LastDiagnosisOperation extends StatelessWidget {
     );
   }
 }
-

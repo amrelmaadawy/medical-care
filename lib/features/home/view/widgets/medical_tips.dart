@@ -3,9 +3,7 @@ import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 import 'package:medical_care/features/home/view/widgets/custom_medical_tips_card.dart';
 
 class MedicalTips extends StatelessWidget {
-  const MedicalTips({
-    super.key,
-  });
+  const MedicalTips({super.key});
 
   @override
   Widget build(BuildContext context) {

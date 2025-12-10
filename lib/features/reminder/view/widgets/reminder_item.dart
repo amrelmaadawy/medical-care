@@ -1,13 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 
 class ReminderItem extends StatelessWidget {
-  const ReminderItem({
-    super.key,
-  });
+  const ReminderItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +26,7 @@ class ReminderItem extends StatelessWidget {
                     width: 15.w,
                     height: 15.w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        kDefBorderRadius - 5,
-                      ),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius - 5),
                       color: kHghtLightBlueColor,
                     ),
                     child: Icon(
@@ -57,17 +52,11 @@ class ReminderItem extends StatelessWidget {
                   ),
                   Text(
                     'الساعة 8:00 صباحاً',
-                    style: TextStyle(
-                      fontSize: 3.8.sp,
-                      color: kSubTextColor,
-                    ),
+                    style: TextStyle(fontSize: 3.8.sp, color: kSubTextColor),
                   ),
                   Text(
                     'التكرار: يومي',
-                    style: TextStyle(
-                      fontSize: 3.8.sp,
-                      color: kSubTextColor,
-                    ),
+                    style: TextStyle(fontSize: 3.8.sp, color: kSubTextColor),
                   ),
                   InkWell(
                     onTap: () {},
@@ -80,10 +69,7 @@ class ReminderItem extends StatelessWidget {
                         ),
                         Text(
                           'حذف التذكير',
-                          style: TextStyle(
-                            fontSize: 3.5.sp,
-                            color: kRedColor,
-                          ),
+                          style: TextStyle(fontSize: 3.5.sp, color: kRedColor),
                         ),
                       ],
                     ),
@@ -94,13 +80,10 @@ class ReminderItem extends StatelessWidget {
               Switch(
                 value: false,
                 onChanged: (v) {},
-                activeThumbColor:
-                    kHghtLightBlueColor,
-                activeTrackColor: kPrimryColor, 
-                inactiveThumbColor:
-                    Colors.white,
-                inactiveTrackColor:
-                    kgreyColor, 
+                activeThumbColor: kHghtLightBlueColor,
+                activeTrackColor: kPrimryColor,
+                inactiveThumbColor: Colors.white,
+                inactiveTrackColor: kgreyColor,
               ),
             ],
           ),
