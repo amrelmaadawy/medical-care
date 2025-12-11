@@ -8,16 +8,16 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
-Future<void> getHomeData() async {
-  emit(GetHomeDataLoading());
-  try {
-    HomeModel homeModel = await HomeApi().getHomeData();
-    emit(GetHomeDataSuccess(homeModel));
-  } catch (e) {
-    if (kDebugMode) {
-      print(e.toString());
+  Future<void> getHomeData() async {
+    emit(GetHomeDataLoading());
+    try {
+      HomeModel homeModel = await HomeApi().getHomeData();
+      emit(GetHomeDataSuccess(homeModel));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      emit(GetHomeDataError(e.toString()));
     }
-    emit(GetHomeDataError(e.toString()));
   }
-}
 }

@@ -21,7 +21,7 @@ class HomeModel {
 
   factory HomeModel.fromMap(Map<String, dynamic> data) {
     final responseData = data['data'] as Map<String, dynamic>?;
-    
+
     return HomeModel(
       latestAssessment: responseData?['latest_assessment'] == null
           ? null

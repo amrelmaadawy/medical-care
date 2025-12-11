@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
 
 class DioHelper {
-  final Dio _dio = Dio(BaseOptions(headers: {
-  "Accept": "application/json",
-  "Content-Type": "application/json",
-  "Authorization": "Bearer 20|EbMjqythDvhibL03ZRM6pkxNMnbY6o0OjtLSGuPp2a346475"
-}));
+  final Dio _dio = Dio(
+    BaseOptions(
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization":
+            "Bearer 20|EbMjqythDvhibL03ZRM6pkxNMnbY6o0OjtLSGuPp2a346475",
+      },
+    ),
+  );
 
   Future<Response> getData(String path) async {
     return _dio.get(path);
