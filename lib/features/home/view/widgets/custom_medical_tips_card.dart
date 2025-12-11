@@ -25,8 +25,8 @@ class CustomMedicalTipsCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 15.w,
-              height: 15.w,
+              width: 17.w,
+              height: 17.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(kDefBorderRadius - 5),
                 color: kHghtLightBlueColor,
@@ -37,10 +37,13 @@ class CustomMedicalTipsCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 1.h),
+
                 Text(
                   title,
                   style: TextStyle(color: kTextColor, fontSize: 4.sp),
                 ),
+                SizedBox(height: 1.h),
                 Text(
                   subTitle,
                   style: TextStyle(color: kSubTextColor, fontSize: 3.6.sp),

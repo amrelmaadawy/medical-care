@@ -50,8 +50,9 @@ class HomeView extends StatelessWidget {
                             builder: (context, state) {
                               return state is GetHomeDataSuccess &&
                                       state.homeModel.totalAssessments != 0
+                                      
                                   ? Text(
-                                      '${state.homeModel.totalAssessments}',
+                                      '${state.homeModel.totalAssessments }',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 6.sp,
