@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
+import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 
 class ReminderItem extends StatelessWidget {
-  const ReminderItem({super.key});
+  const ReminderItem({super.key,required this.reminderModel});
+        final ReminderModel reminderModel;
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 18.h,
       child: Card(
@@ -43,7 +46,7 @@ class ReminderItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'دواء الضغط',
+                  reminderModel.title!,
                     style: TextStyle(
                       fontSize: 4.2.sp,
                       color: kTextColor,
@@ -78,7 +81,7 @@ class ReminderItem extends StatelessWidget {
               ),
               Spacer(),
               Switch(
-                value: false,
+                value: reminderModel.active==1?true:false,
                 onChanged: (v) {},
                 activeThumbColor: kHghtLightBlueColor,
                 activeTrackColor: kPrimryColor,
