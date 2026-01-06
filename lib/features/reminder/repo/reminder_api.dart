@@ -1,4 +1,5 @@
 import 'package:medical_care/core/helper/dio_helper.dart';
+import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 import 'package:medical_care/features/reminder/repo/reminder_repo.dart';
 
@@ -22,8 +23,24 @@ class ReminderApi extends ReminderRepo {
   }
 
   @override
-  Future<void> postReminderData() {
-    throw UnimplementedError();
+  Future<void> postReminderData({
+    required String title,
+    required String description,
+    bool active = true,
+    required RecurrenceRule recurrenceRules,
+  }) async {
+    await dio.postData('https://graduation.coderaeg.com/api/reminders', {
+      "title": title,
+      "description": description,
+      "active": active,
+      "recurrence_rules": [{
+        "frequency":recurrenceRules.frequency,
+        "interval": recurrenceRules.interval,
+        "time": recurrenceRules.time,
+        "start_date": recurrenceRules.startDate,
+        "end_date":recurrenceRules.endDate,
+      },]
+    });
   }
 
   @override

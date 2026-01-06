@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/components/custom_elevated_button.dart';
 import 'package:medical_care/core/components/custom_pop_menu_button.dart';
 import 'package:medical_care/core/components/custom_text_form_field.dart';
@@ -6,6 +8,8 @@ import 'package:medical_care/core/helper/time_servcies.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
+import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
+import 'package:medical_care/features/reminder/model_view/reminder_cubit.dart';
 
 class AddReminder extends StatelessWidget {
   const AddReminder({super.key});
@@ -15,7 +19,9 @@ class AddReminder extends StatelessWidget {
     TextEditingController titleController = TextEditingController();
     TextEditingController notesController = TextEditingController();
     TextEditingController timeController = TextEditingController();
-    TextEditingController dateController = TextEditingController();
+    TextEditingController startDateController = TextEditingController();
+    TextEditingController endDateController = TextEditingController();
+    String? selectedRecurrence;
     return Scaffold(
       backgroundColor: Color(0XFFf2f8ff),
       appBar: AppBar(
@@ -59,12 +65,31 @@ class AddReminder extends StatelessWidget {
                       SizedBox(height: 2.h),
                       GestureDetector(
                         onTap: () =>
-                            TimeService.pickDate(context, dateController),
+                            TimeService.pickDate(context, startDateController),
                         child: AbsorbPointer(
                           child: CustomTextFormField(
-                            controller: dateController,
-                            text: 'التاريخ  ',
-                            labelText: 'التاريخ ',
+                            controller: startDateController,
+                            text: 'تاريخ البدايه',
+                            labelText: 'تاريخ البدايه',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'من فضلك ادخل  التاريخ ';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.datetime,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      GestureDetector(
+                        onTap: () =>
+                            TimeService.pickDate(context, endDateController),
+                        child: AbsorbPointer(
+                          child: CustomTextFormField(
+                            controller: endDateController,
+                            text: 'تاريخ النهايه ',
+                            labelText: ' تاريخ النهايه ',
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'من فضلك ادخل  التاريخ ';
@@ -78,7 +103,9 @@ class AddReminder extends StatelessWidget {
                       SizedBox(height: 2.h),
 
                       GestureDetector(
-                        onTap: () => TimeService.pickTime(context, (v) {}),
+                        onTap: () => TimeService.pickTime(context, (v) {
+                          timeController.text = v;
+                        }),
                         child: AbsorbPointer(
                           child: CustomTextFormField(
                             controller: timeController,
@@ -102,6 +129,9 @@ class AddReminder extends StatelessWidget {
                         child: CustomPopMenuButton(
                           title: 'التكرار',
                           options: ['سنوي', 'شهري', 'اسبوعي', 'يومي'],
+                          onSelected: (value) {
+                            selectedRecurrence = value;
+                          },
                         ),
                       ),
                       SizedBox(height: 2.h),
@@ -120,18 +150,50 @@ class AddReminder extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomElevatedButton(
-                            widget: Icon(
-                              Icons.done,
-                              color: Colors.white,
-                              size: 5.sp,
-                            ),
-                            text: 'حفظ',
-                            borderColor: kPrimryColor,
-                            buttonColor: kPrimryColor,
-                            textColor: Colors.white,
-                            width: 40.w,
-                            onPressed: () {},
+                          BlocBuilder<ReminderCubit, ReminderState>(
+                            builder: (context, state) {
+                              return CustomElevatedButton(
+                                widget: Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 5.sp,
+                                ),
+                                text: 'حفظ',
+                                borderColor: kPrimryColor,
+                                buttonColor: kPrimryColor,
+                                textColor: Colors.white,
+                                width: 40.w,
+                                onPressed: () {
+                                  if (kDebugMode) {
+                                    print('title ${titleController.text} ');
+                                    print('descrip ${notesController.text} ');
+                                    print('freq $selectedRecurrence ');
+                                    print(
+                                      'start date ${startDateController.text} ',
+                                    );
+                                    print(
+                                      'end date ${endDateController.text} ',
+                                    );
+                                    print('time ${timeController.text} ');
+                                  }
+
+                                  context.read<ReminderCubit>().postReminder(
+                                    title: titleController.text,
+                                    description: notesController.text,
+                                    recurrenceRules: RecurrenceRule(
+                                      frequency: selectedRecurrence,
+                                      interval: 1,
+                                      startDate:startDateController.text,
+                                      endDate: endDateController.text,
+                                      time: timeController.text,
+                                    ),
+                                  );
+
+                            
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
                           ),
 
                           CustomElevatedButton(

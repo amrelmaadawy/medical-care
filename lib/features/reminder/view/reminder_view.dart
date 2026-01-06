@@ -14,52 +14,68 @@ class ReminderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ReminderCubit()..getAllReminders(),
-      child: Padding(
-        padding: const EdgeInsets.all(kDefPadding),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Builder(
+        builder: (builderContext) {
+          return Padding(
+            padding: const EdgeInsets.all(kDefPadding),
+            child: Column(
               children: [
-                Text(
-                  'التذكيرات الطبية',
-                  style: TextStyle(fontSize: 5.sp, color: kTextColor),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'التذكيرات الطبية',
+                      style: TextStyle(fontSize: 5.sp, color: kTextColor),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          builderContext,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: builderContext.read<ReminderCubit>(),
+                              child: AddReminder(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 6.sp,
+                        backgroundColor: kPrimryColor,
+                        child: Icon(Icons.add, color: Colors.white, size: 6.sp),
+                      ),
+                    ),
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddReminder()),
-                    );
-                  },
-                  child: CircleAvatar(
-                    radius: 6.sp,
-                    backgroundColor: kPrimryColor,
-                    child: Icon(Icons.add, color: Colors.white, size: 6.sp),
+                SizedBox(height: 30),
+                Expanded(
+                  child: BlocBuilder<ReminderCubit, ReminderState>(
+                    builder: (context, state) {
+                      if (state is GetReminderSuccess) {
+                        return state.reminders.isEmpty
+                            ? Center(child: Text('لا توجد تذكيرات'))
+                            : ListView.separated(
+                                itemBuilder: (context, index) => ReminderItem(
+                                  reminderModel: state.reminders[index],
+                                ),
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(height: 2.h);
+                                },
+                                itemCount: state.reminders.length,
+                              );
+                      } else if (state is GetReminderLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is GetReminderError) {
+                        return Center(child: Text('حدث خطأ'));
+                      }
+                      return Center(child: Text(''));
+                    },
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Expanded(
-              child: BlocBuilder<ReminderCubit, ReminderState>(
-                builder: (context, state) {
-                  return state is GetReminderSuccess
-                      ? ListView.separated(
-                          itemBuilder: (context, index) => ReminderItem(
-                            reminderModel: state.reminders[index],
-                          ),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(height: 2.h);
-                          },
-                          itemCount: state.reminders.length,
-                        )
-                      : Text('');
-                },
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

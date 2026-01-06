@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
+import 'package:medical_care/core/utils/frequancy_maping.dart';
 
 class CustomPopMenuButton extends StatefulWidget {
   const CustomPopMenuButton({
@@ -20,7 +21,8 @@ class CustomPopMenuButton extends StatefulWidget {
 }
 
 class _CustomPopMenuButtonState extends State<CustomPopMenuButton> {
-  String? selectedValue;
+String? selectedLabel;   // اللي هيظهر (عربي)
+String? selectedValue;   // اللي هيتبعت للـ API
 
   @override
   void initState() {
@@ -40,13 +42,15 @@ class _CustomPopMenuButtonState extends State<CustomPopMenuButton> {
         double iconSize = isWeb ? 24 : (isLandscape ? 20 : 20);
 
         return PopupMenuButton<String?>(
+          
           color: Colors.white,
           onSelected: (value) {
             setState(() {
-              selectedValue = value;
+              selectedLabel = value;
+    selectedValue = recurrenceMap[value];
             });
             if (widget.onSelected != null) {
-              widget.onSelected!(value);
+              widget.onSelected!(selectedValue);
             }
           },
           itemBuilder: (context) {
@@ -70,7 +74,7 @@ class _CustomPopMenuButtonState extends State<CustomPopMenuButton> {
                   Icon(Icons.arrow_downward, size: iconSize),
                   SizedBox(width: isWeb ? 8 : (isLandscape ? 6 : 4)),
                   Text(
-                    selectedValue ?? widget.title,
+                    selectedLabel ?? widget.title,
                     style: TextStyle(fontSize: fontSize),
                   ),
                 ],

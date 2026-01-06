@@ -16,3 +16,12 @@ class GetReminderError extends ReminderState {
   final String error;
   GetReminderError(this.error);
 }
+
+class PostReminderLoading extends ReminderState {}
+
+class PostReminderSuccess extends ReminderState {}
+
+class PostReminderError extends ReminderState {
+  final String error;
+  PostReminderError(this.error);
+}

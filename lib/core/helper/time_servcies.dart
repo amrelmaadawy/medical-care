@@ -24,7 +24,7 @@ class TimeService {
     );
 
     // قيمة واحدة فقط
-    final value = DateFormat('HH:mm:ss').format(dateTime);
+    final value = DateFormat('HH:mm').format(dateTime);
 
     onPick(value);
   }
@@ -39,7 +39,7 @@ class TimeService {
       initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime(2100),
-      locale: const Locale("ar"),
+      locale: const Locale("en"),
     );
 
     if (picked == null) return;
