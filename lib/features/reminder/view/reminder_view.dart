@@ -4,6 +4,7 @@ import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/reminder/model_view/reminder_cubit.dart';
+import 'package:medical_care/features/reminder/view/add_reminder.dart';
 import 'package:medical_care/features/reminder/view/widgets/reminder_item.dart';
 
 class ReminderView extends StatelessWidget {
@@ -24,10 +25,18 @@ class ReminderView extends StatelessWidget {
                   'التذكيرات الطبية',
                   style: TextStyle(fontSize: 5.sp, color: kTextColor),
                 ),
-                CircleAvatar(
-                  radius: 6.sp,
-                  backgroundColor: kPrimryColor,
-                  child: Icon(Icons.add, color: Colors.white, size: 6.sp),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddReminder()),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 6.sp,
+                    backgroundColor: kPrimryColor,
+                    child: Icon(Icons.add, color: Colors.white, size: 6.sp),
+                  ),
                 ),
               ],
             ),

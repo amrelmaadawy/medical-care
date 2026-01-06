@@ -37,12 +37,12 @@ class CustomTextFormField extends StatelessWidget {
             : Text(
                 text,
                 style: TextStyle(
-                  fontSize: isWeb ? 20 : 3.5.sp,
+                  fontSize: isWeb ? 20 : 4.sp,
                   fontWeight: FontWeight.w600,
                   color: kSubTextColor,
                 ),
               ),
-        SizedBox(height: isWeb ? 20 : 1.h),
+        SizedBox(height: isWeb ? 20 : 1.5.h),
         TextFormField(
           obscureText: obscureText,
           controller: controller,
