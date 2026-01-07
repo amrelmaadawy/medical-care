@@ -139,7 +139,7 @@ class ReminderItem extends StatelessWidget {
                     onChanged: (v) {
                       context.read<ReminderCubit>().editActiveReminder(
                         id: reminderModel.id!,
-                        active: v==true?1:0,
+                        active: v == true ? 1 : 0,
                       );
                     },
                     activeThumbColor: kHghtLightBlueColor,

@@ -21,8 +21,8 @@ class CustomPopMenuButton extends StatefulWidget {
 }
 
 class _CustomPopMenuButtonState extends State<CustomPopMenuButton> {
-String? selectedLabel;   // اللي هيظهر (عربي)
-String? selectedValue;   // اللي هيتبعت للـ API
+  String? selectedLabel; // اللي هيظهر (عربي)
+  String? selectedValue; // اللي هيتبعت للـ API
 
   @override
   void initState() {
@@ -42,12 +42,11 @@ String? selectedValue;   // اللي هيتبعت للـ API
         double iconSize = isWeb ? 24 : (isLandscape ? 20 : 20);
 
         return PopupMenuButton<String?>(
-          
           color: Colors.white,
           onSelected: (value) {
             setState(() {
               selectedLabel = value;
-    selectedValue = recurrenceMap[value];
+              selectedValue = recurrenceMap[value];
             });
             if (widget.onSelected != null) {
               widget.onSelected!(selectedValue);

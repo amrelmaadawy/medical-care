@@ -183,14 +183,13 @@ class AddReminder extends StatelessWidget {
                                     recurrenceRules: RecurrenceRule(
                                       frequency: selectedRecurrence,
                                       interval: 1,
-                                      startDate:startDateController.text,
+                                      startDate: startDateController.text,
                                       endDate: endDateController.text,
                                       time: timeController.text,
                                     ),
                                   );
 
-                            
-                                  Navigator.pop(context); 
+                                  Navigator.pop(context);
                                 },
                               );
                             },

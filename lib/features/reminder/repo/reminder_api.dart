@@ -74,11 +74,9 @@ class ReminderApi extends ReminderRepo {
       "active": active,
     });
   }
-  
+
   @override
-  Future<void> getReminderById({required int id}) async{
-  await dio.getData(
-      'https://graduation.coderaeg.com/api/reminders/$id',
-    );
+  Future<void> getReminderById({required int id}) async {
+    await dio.getData('https://graduation.coderaeg.com/api/reminders/$id');
   }
 }

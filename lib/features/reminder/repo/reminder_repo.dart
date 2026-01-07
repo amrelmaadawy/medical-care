@@ -16,7 +16,7 @@ abstract class ReminderRepo {
     bool active = true,
     required RecurrenceRule recurrenceRules,
   });
-    Future<void> editActiveReminderData({required int id,required int active});
+  Future<void> editActiveReminderData({required int id, required int active});
 
   Future<void> deleteReminderData({required int id});
 }

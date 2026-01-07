@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 import 'package:medical_care/features/reminder/repo/reminder_api.dart';
-import 'package:meta/meta.dart';
 
 part 'reminder_state.dart';
 
@@ -17,7 +16,6 @@ class ReminderCubit extends Cubit<ReminderState> {
 
       emit(GetReminderSuccess(reminders));
     } catch (e) {
-      print(e);
       emit(GetReminderError(e.toString()));
     }
   }
@@ -29,7 +27,6 @@ class ReminderCubit extends Cubit<ReminderState> {
 
       emit(GetReminderByIdSuccess());
     } catch (e) {
-      print(e);
       emit(GetReminderByIdError(e.toString()));
     }
   }

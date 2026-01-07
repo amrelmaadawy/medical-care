@@ -24,9 +24,10 @@ class DioHelper {
     return _dio.patch(path, data: data);
   }
 
-Future<Response> putData(String path, Map<String, dynamic> data) async {
+  Future<Response> putData(String path, Map<String, dynamic> data) async {
     return _dio.put(path, data: data);
   }
+
   Future<Response> deletData(String path) async {
     return _dio.delete(path);
   }
