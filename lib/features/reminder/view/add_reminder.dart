@@ -190,7 +190,7 @@ class AddReminder extends StatelessWidget {
                                   );
 
                             
-                                  Navigator.pop(context);
+                                  Navigator.pop(context); 
                                 },
                               );
                             },
@@ -202,7 +202,6 @@ class AddReminder extends StatelessWidget {
                               color: kRedColor,
                               size: 5.sp,
                             ),
-
                             text: 'الغاء',
                             borderColor: kHghtLightRedColor,
                             buttonColor: Colors.white,

@@ -22,6 +22,18 @@ class ReminderCubit extends Cubit<ReminderState> {
     }
   }
 
+  Future<void> getReminderById({required int id}) async {
+    emit(GetReminderByIdLoading());
+    try {
+      await ReminderApi().getReminderById(id: id);
+
+      emit(GetReminderByIdSuccess());
+    } catch (e) {
+      print(e);
+      emit(GetReminderByIdError(e.toString()));
+    }
+  }
+
   Future<void> postReminder({
     required String title,
     required String description,
@@ -34,12 +46,43 @@ class ReminderCubit extends Cubit<ReminderState> {
         description: description,
         recurrenceRules: recurrenceRules,
       );
-      getAllReminders();
+      await getAllReminders();
       emit(PostReminderSuccess());
     } catch (e) {
       emit(PostReminderError(e.toString()));
       if (kDebugMode) {
         print('$e==========================================================');
+      }
+    }
+  }
+
+  Future<void> deletReminder({required int id}) async {
+    emit(DeletReminderLoading());
+    try {
+      await ReminderApi().deleteReminderData(id: id);
+      await getAllReminders();
+      emit(GetReminderSuccess(reminders));
+    } catch (e) {
+      if (kDebugMode) {
+        print('$e==========================================================');
+      }
+      emit(DeletReminderError(e.toString()));
+    }
+  }
+
+  Future<void> editActiveReminder({
+    required int id,
+    required int active,
+  }) async {
+    emit(EditeActiveReminderLoading());
+    try {
+      await ReminderApi().editActiveReminderData(id: id, active: active);
+      await getAllReminders();
+      emit(GetReminderSuccess(reminders));
+    } catch (e) {
+      if (kDebugMode) {
+        print('$e==========================================================');
+        emit(EditeActiveReminderError(e.toString()));
       }
     }
   }
