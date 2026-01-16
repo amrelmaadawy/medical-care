@@ -50,27 +50,28 @@ class ReminderView extends StatelessWidget {
                 SizedBox(height: 30),
                 Expanded(
                   child: BlocBuilder<ReminderCubit, ReminderState>(
-                    builder: (context, state) {
-                      if (state is GetReminderSuccess) {
-                        return state.reminders.isEmpty
-                            ? Center(child: Text('لا توجد تذكيرات'))
-                            : ListView.separated(
-                                itemBuilder: (context, index) => ReminderItem(
-                                  reminderModel: state.reminders[index],
-                                ),
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(height: 2.h);
-                                },
-                                itemCount: state.reminders.length,
-                              );
-                      } else if (state is GetReminderLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is GetReminderError) {
-                        return Center(child: Text('حدث خطأ'));
-                      }
-                      return Center(child: Text(''));
-                    },
-                  ),
+  builder: (context, state) {
+    if (state is GetReminderSuccess) {
+      return state.reminders.isEmpty
+          ? Center(child: Text('لا توجد تذكيرات'))
+          : ListView.separated(
+              itemBuilder: (context, index) => ReminderItem(
+                reminderModel: state.reminders[index],
+              ),
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 2.h);
+              },
+              itemCount: state.reminders.length,
+            );
+    } else if (state is GetReminderLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else if (state is GetReminderError) {
+      return Center(child: Text('حدث خطأ'));
+    }
+    return Center(child: Text(''));
+  },
+),
+
                 ),
               ],
             ),

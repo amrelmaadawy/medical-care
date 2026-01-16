@@ -31,27 +31,28 @@ class ReminderCubit extends Cubit<ReminderState> {
     }
   }
 
-  Future<void> postReminder({
-    required String title,
-    required String description,
-    required RecurrenceRule recurrenceRules,
-  }) async {
-    emit(PostReminderLoading());
-    try {
-      await ReminderApi().postReminderData(
-        title: title,
-        description: description,
-        recurrenceRules: recurrenceRules,
-      );
-      await getAllReminders();
-      emit(PostReminderSuccess());
-    } catch (e) {
-      emit(PostReminderError(e.toString()));
-      if (kDebugMode) {
-        print('$e==========================================================');
-      }
+ Future<void> postReminder({
+  required String title,
+  required String description,
+  required RecurrenceRule recurrenceRules,
+}) async {
+  emit(GetReminderLoading()); // بدل PostReminderLoading
+  try {
+    await ReminderApi().postReminderData(
+      title: title,
+      description: description,
+      recurrenceRules: recurrenceRules,
+    );
+    await getAllReminders(); // ده هيملى الـ reminders ويعمل GetReminderSuccess
+  } catch (e) {
+    emit(GetReminderError(e.toString()));
+    if (kDebugMode) {
+      print('$e==========================================================');
     }
   }
+}
+
+
 
   Future<void> deletReminder({required int id}) async {
     emit(DeletReminderLoading());

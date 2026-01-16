@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/Auth/signup/widgets/custom_text_field.dart';
-
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -16,15 +16,10 @@ class _SignInViewState extends State<SignInView> {
   bool _agreeToTerms = false;
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF2F80ED);
-    const Color backgroundColor = Color(0xFFF7F9FC);
-    const Color textColor = Colors.black87;
-    const Color hintColor = Color(0xFFBDBDBD);
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -44,7 +39,7 @@ class _SignInViewState extends State<SignInView> {
                       width: 80,
                       height: 80,
                       decoration: const BoxDecoration(
-                        color: Color(0xFF2F80ED),
+                        color: kPrimryColor,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -58,7 +53,7 @@ class _SignInViewState extends State<SignInView> {
                     // Title
                     Text(
                       'إنشاء حساب جديد',
-                      style: GoogleFonts.tajawal(
+                      style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -70,10 +65,7 @@ class _SignInViewState extends State<SignInView> {
                     // Subtitle
                     Text(
                       'انضم إلينا لبدأ رحله التشخيص الطبي',
-                      style: GoogleFonts.tajawal(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 16, color: kSubTextColor),
                       textAlign: TextAlign.center,
                     ),
 
@@ -115,7 +107,7 @@ class _SignInViewState extends State<SignInView> {
                           _obscurePassword
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: hintColor,
+                          color: kSubTextColor,
                         ),
                         onPressed: () {
                           setState(() {
@@ -127,7 +119,6 @@ class _SignInViewState extends State<SignInView> {
 
                     const SizedBox(height: 16),
 
-                    // Confirm password field with eye icon
                     CustomTextField(
                       hintText: 'أعد إدخال كلمة المرور',
                       labelText: 'تأكيد كلمة المرور',
@@ -137,7 +128,7 @@ class _SignInViewState extends State<SignInView> {
                           _obscureConfirmPassword
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: hintColor,
+                          color: kSubTextColor,
                         ),
                         onPressed: () {
                           setState(() {
@@ -165,16 +156,13 @@ class _SignInViewState extends State<SignInView> {
                           child: RichText(
                             text: TextSpan(
                               text: 'أوافق على ',
-                              style: GoogleFonts.tajawal(
-                                fontSize: 13,
-                                color: textColor,
-                              ),
+                              style: TextStyle(fontSize: 13, color: kTextColor),
                               children: [
                                 TextSpan(
                                   text: 'الشروط والأحكام و سياسة الخصوصية',
-                                  style: GoogleFonts.tajawal(
+                                  style: TextStyle(
                                     fontSize: 13,
-                                    color: primaryColor,
+                                    color: kPrimryColor,
                                   ),
                                 ),
                               ],
@@ -193,14 +181,16 @@ class _SignInViewState extends State<SignInView> {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryColor,
+                          backgroundColor: kPrimryColor,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              kDefBorderRadius,
+                            ),
                           ),
                         ),
                         child: Text(
                           'إنشاء الحساب',
-                          style: GoogleFonts.tajawal(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
@@ -215,17 +205,14 @@ class _SignInViewState extends State<SignInView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'لديك حساب؟ ',
-                          style: GoogleFonts.tajawal(fontSize: 13),
-                        ),
+                        Text('لديك حساب؟ ', style: TextStyle(fontSize: 13)),
                         GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: Text(
                             'تسجيل الدخول',
-                            style: GoogleFonts.tajawal(
+                            style: TextStyle(
                               fontSize: 13,
-                              color: primaryColor,
+                              color: kPrimryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

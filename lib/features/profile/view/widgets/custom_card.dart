@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_care/core/utils/app_colors.dart';
 
 class CustomCard extends StatelessWidget {
   final IconData icon;
@@ -13,7 +14,7 @@ class CustomCard extends StatelessWidget {
     required this.icon,
     required this.title,
     this.textColor = Colors.black,
-    this.iconContainerColor = Colors.blue,
+    this.iconContainerColor = kHghtLightBlueColor,
     required this.iconColor,
   });
 
@@ -36,7 +37,7 @@ class CustomCard extends StatelessWidget {
 
                   color: iconContainerColor,
                 ),
-                child: Icon(icon, size: 24, color: iconContainerColor),
+                child: Icon(icon, size: 24, color: iconColor),
               ),
 
               SizedBox(width: 16),

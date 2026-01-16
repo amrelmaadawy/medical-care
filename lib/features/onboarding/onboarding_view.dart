@@ -14,31 +14,50 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
+  // تعريف الـ Controller بشكل مباشر
   final PageController _pageController = PageController();
   int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // تم حذف الـ addPostFrameCallback لأنها كانت تسبب تأخير في عرض الصفحة الأولى
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // التأكد من تهيئة SizeConfig هنا لضمان عمل الـ .sp والـ .w والـ .h بشكل سليم
+    SizeConfig.init(context);
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefPadding),
           child: Column(
             children: [
+              // زر التخطي
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
+                  onPressed: () => _navigateToSignUp(),
                   child: Text(
                     'تخطي',
-                    style: TextStyle(color: kSubTextColor, fontSize: 3.5.sp),
+                    style: TextStyle(
+                      color: kSubTextColor, 
+                      fontSize: 14, // يفضل استخدام قيم ثابتة أو التأكد من SizeConfig
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUpView()),
-                    );
-                  },
                 ),
               ),
+
+              // محتوى الـ Onboarding
               Expanded(
                 child: PageView(
                   controller: _pageController,
@@ -47,114 +66,107 @@ class _OnboardingViewState extends State<OnboardingView> {
                       currentPage = index;
                     });
                   },
-                  children: [
+                  children: const [
                     OnboardingPage(
                       icon: Icons.auto_awesome_outlined,
                       iconColor: kPrimryColor,
                       iconBGColor: kHghtLightBlueColor,
                       title: 'تشخيص ذكي بالذكاء الاصطناعي',
-                      subTitle:
-                          'احصل على تشخيص سريع ودقيق لجدري الماء باستخدام تقنية الذكاء الاصطناعي المتقدمة',
+                      subTitle: 'احصل على تشخيص سريع ودقيق لجدري الماء باستخدام تقنية الذكاء الاصطناعي المتقدمة',
                     ),
                     OnboardingPage(
                       icon: Icons.file_upload_outlined,
                       iconColor: kBoardingGreenColor,
                       iconBGColor: kHghtLightonBoardingGreenColor,
                       title: 'قم برفع الصورة والأعراض',
-                      subTitle:
-                          'التقط صورة للطفح الجلدي وأدخل الأعراض للحصول على تقييم شامل وموثوق',
+                      subTitle: 'التقط صورة للطفح الجلدي وأدخل الأعراض للحصول على تقييم شامل وموثوق',
                     ),
                     OnboardingPage(
                       icon: Icons.chat_bubble_outline,
                       iconColor: kOrangeColor,
                       iconBGColor: kHghtLightOrangeColor,
                       title: 'استشارة طبية ونصائح',
-                      subTitle:
-                          'تواصل مع الأطباء المتخصصين واحصل على نصائح طبية موثوقة على مدار الساعة',
+                      subTitle: 'تواصل مع الأطباء المتخصصين واحصل على نصائح طبية موثوقة على مدار الساعة',
                     ),
                   ],
                 ),
               ),
 
+              SizedBox(height: 3.h),
+
+              // مؤشر النقاط
               SmoothPageIndicator(
                 controller: _pageController,
                 count: 3,
-
                 effect: ExpandingDotsEffect(
                   dotHeight: 8,
                   dotWidth: 8,
-                  activeDotColor: Colors.blue,
+                  activeDotColor: kPrimryColor,
                   dotColor: Colors.grey.shade300,
                   expansionFactor: 4,
                   spacing: 8,
                 ),
               ),
+
               SizedBox(height: 5.h),
+
+              // الأزرار السفلية
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  // زر التالي / ابدأ الآن
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kPrimryColor,
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kDefBorderRadius),
                       ),
                       minimumSize: Size(40.w, 6.h),
                     ),
                     onPressed: () {
-                      currentPage == 2
-                          ? Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpView(),
-                              ),
-                            )
-                          : _pageController.nextPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            );
+                      if (currentPage == 2) {
+                        _navigateToSignUp();
+                      } else {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeInOut,
+                        );
+                      }
                     },
-                    child: currentPage == 2
-                        ? Text(
-                            ' ابداء الان ',
-                            style: TextStyle(
-                              fontSize: 5.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        : Text(
-                            'التالي',
-                            style: TextStyle(
-                              fontSize: 5.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                    child: Text(
+                      currentPage == 2 ? 'ابدأ الآن' : 'التالي',
+                      style: TextStyle(
+                        fontSize: 16, // جرب استخدام 16 بدلاً من 5.sp للتأكد
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
+
+                  // زر السابق
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: kPrimryColor),
                         borderRadius: BorderRadius.circular(kDefBorderRadius),
                       ),
                       minimumSize: Size(40.w, 6.h),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        currentPage == 0
-                            ? null
-                            : _pageController.previousPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                      });
-                    },
+                    onPressed: currentPage == 0
+                        ? null
+                        : () {
+                            _pageController.previousPage(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            );
+                          },
                     child: Text(
-                      ' السابق',
+                      'السابق',
                       style: TextStyle(
-                        fontSize: 5.sp,
+                        fontSize: 16,
                         color: kPrimryColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -162,10 +174,19 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                 ],
               ),
+              SizedBox(height: 2.h),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // دالة الانتقال لصفحة التسجيل
+  void _navigateToSignUp() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const SignUpView()),
     );
   }
 }

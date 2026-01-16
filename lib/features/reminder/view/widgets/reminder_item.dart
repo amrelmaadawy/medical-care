@@ -4,6 +4,7 @@ import 'package:medical_care/core/components/custom_elevated_button.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
+import 'package:medical_care/core/utils/frequancy_maping.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 import 'package:medical_care/features/reminder/model_view/reminder_cubit.dart';
 
@@ -16,7 +17,7 @@ class ReminderItem extends StatelessWidget {
     return BlocBuilder<ReminderCubit, ReminderState>(
       builder: (context, state) {
         return SizedBox(
-          height: 18.h,
+          height: 19.h,
           child: Card(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -67,28 +68,29 @@ class ReminderItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        reminderModel.recurrenceRules![0].frequency!,
+                        getRecurrenceArabic(
+                          reminderModel.recurrenceRules![0].frequency!,
+                        ),
                         style: TextStyle(
                           fontSize: 3.8.sp,
                           color: kSubTextColor,
                         ),
                       ),
-
+                      SizedBox(height: 2.h),
                       Row(
                         children: [
-                          CustomElevatedButton(
-                            widget: Icon(
-                              Icons.edit_outlined,
-                              color: kPrimryColor,
-                              size: 5.sp,
-                            ),
-                            text: '',
-                            borderColor: kHghtLightBlueColor,
-                            textColor: kPrimryColor,
-                            width: 18.w,
-                            onPressed: () {},
-                          ),
-                          SizedBox(width: 3.w),
+                          // CustomElevatedButton(
+                          //   widget: Icon(
+                          //     Icons.edit_outlined,
+                          //     color: kPrimryColor,
+                          //     size: 5.sp,
+                          //   ),
+                          //   text: '',
+                          //   borderColor: kHghtLightBlueColor,
+                          //   textColor: kPrimryColor,
+                          //   width: 18.w,
+                          //   onPressed: () {},
+                          // ),
                           CustomElevatedButton(
                             widget: Icon(
                               Icons.delete_outline_outlined,

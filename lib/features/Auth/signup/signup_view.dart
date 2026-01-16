@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/core/utils/app_padding.dart';
 
 import 'package:medical_care/features/layout/view/layout_view.dart';
 import '../signin/signin_view.dart';
@@ -16,16 +17,10 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF2F80ED);
-    const Color backgroundColor = Color(0xFFF7F9FC);
-    const Color cardColor = Colors.white;
-    const Color textColor = Colors.black87;
-    const Color hintColor = Color(0xFFBDBDBD);
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -53,7 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
                 Text(
                   'التشخيص الطبي',
                   textDirection: TextDirection.rtl,
-                  style: GoogleFonts.tajawal(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -65,7 +60,7 @@ class _SignUpViewState extends State<SignUpView> {
                 // Subtitle
                 Text(
                   'مرحباً بك في تطبيق التشخيص الطبي',
-                  style: GoogleFonts.tajawal(fontSize: 14, color: Colors.grey),
+                  style: TextStyle(fontSize: 14, color: kSubTextColor),
                   textAlign: TextAlign.center,
                 ),
 
@@ -76,10 +71,10 @@ class _SignUpViewState extends State<SignUpView> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     'البريد الإلكتروني أو رقم الهاتف',
-                    style: GoogleFonts.tajawal(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: textColor,
+                      color: kTextColor,
                     ),
                   ),
                 ),
@@ -89,24 +84,21 @@ class _SignUpViewState extends State<SignUpView> {
                 TextField(
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: cardColor,
+                    fillColor: kgreyHighlightColor,
                     hintText: 'أدخل البريد الإلكتروني أو رقم الهاتف',
-                    hintStyle: GoogleFonts.tajawal(
-                      color: hintColor,
-                      fontSize: 14,
-                    ),
+                    hintStyle: TextStyle(color: kSubTextColor, fontSize: 14),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 14,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius),
                       borderSide: const BorderSide(
-                        color: primaryColor,
+                        color: kPrimryColor,
                         width: 1,
                       ),
                     ),
@@ -120,10 +112,10 @@ class _SignUpViewState extends State<SignUpView> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     'كلمة المرور',
-                    style: GoogleFonts.tajawal(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: textColor,
+                      color: kTextColor,
                     ),
                   ),
                 ),
@@ -134,18 +126,15 @@ class _SignUpViewState extends State<SignUpView> {
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: cardColor,
+                    fillColor: kgreyHighlightColor,
                     hintText: 'أدخل كلمة المرور',
-                    hintStyle: GoogleFonts.tajawal(
-                      color: hintColor,
-                      fontSize: 14,
-                    ),
+                    hintStyle: TextStyle(color: kSubTextColor, fontSize: 14),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscurePassword
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
-                        color: hintColor,
+                        color: kSubTextColor,
                       ),
                       onPressed: () {
                         setState(() {
@@ -158,13 +147,13 @@ class _SignUpViewState extends State<SignUpView> {
                       vertical: 14,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius),
                       borderSide: const BorderSide(
-                        color: primaryColor,
+                        color: kPrimryColor,
                         width: 1,
                       ),
                     ),
@@ -186,27 +175,20 @@ class _SignUpViewState extends State<SignUpView> {
                             onChanged: (_) {},
                             visualDensity: VisualDensity.compact,
                           ),
-                          Text(
-                            'تذكرني',
-                            style: GoogleFonts.tajawal(fontSize: 13),
-                          ),
+                          Text('تذكرني', style: TextStyle(fontSize: 13)),
                         ],
                       ),
                     ),
                     // Forgot password
                     Text(
                       'نسيت كلمة المرور؟',
-                      style: GoogleFonts.tajawal(
-                        fontSize: 13,
-                        color: primaryColor,
-                      ),
+                      style: TextStyle(fontSize: 13, color: kPrimryColor),
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 40),
 
-                
                 SizedBox(
                   width: double.infinity,
                   height: 48,
@@ -220,14 +202,14 @@ class _SignUpViewState extends State<SignUpView> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
+                      backgroundColor: kPrimryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(kDefBorderRadius),
                       ),
                     ),
                     child: Text(
                       'تسجيل الدخول',
-                      style: GoogleFonts.tajawal(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -242,10 +224,7 @@ class _SignUpViewState extends State<SignUpView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'ليس لديك حساب؟ ',
-                      style: GoogleFonts.tajawal(fontSize: 13),
-                    ),
+                    Text('ليس لديك حساب؟ ', style: TextStyle(fontSize: 13)),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -257,9 +236,9 @@ class _SignUpViewState extends State<SignUpView> {
                       },
                       child: Text(
                         'إنشاء حساب جديد',
-                        style: GoogleFonts.tajawal(
+                        style: TextStyle(
                           fontSize: 13,
-                          color: primaryColor,
+                          color: kPrimryColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

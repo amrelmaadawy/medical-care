@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/core/utils/app_padding.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
@@ -19,11 +20,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Color(0xFF2F80ED);
-    const Color cardColor = Colors.white;
-    const Color hintColor = Color(0xFFBDBDBD);
-    const Color textColor = Colors.black87;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,10 +28,10 @@ class CustomTextField extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             labelText,
-            style: GoogleFonts.tajawal(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: textColor,
+              color: kTextColor,
             ),
           ),
         ),
@@ -47,21 +43,21 @@ class CustomTextField extends StatelessWidget {
           keyboardType: keyboardType,
           decoration: InputDecoration(
             filled: true,
-            fillColor: cardColor,
+            fillColor: kgreyHighlightColor,
             hintText: hintText,
-            hintStyle: GoogleFonts.tajawal(color: hintColor, fontSize: 14),
+            hintStyle: TextStyle(color: kSubTextColor, fontSize: 14),
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 5,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(kDefBorderRadius),
               borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: primaryColor, width: 1),
+              borderRadius: BorderRadius.circular(kDefBorderRadius),
+              borderSide: const BorderSide(color: kPrimryColor, width: 1),
             ),
           ),
         ),

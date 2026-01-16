@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/components/custom_elevated_button.dart';
@@ -11,16 +10,43 @@ import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
 import 'package:medical_care/features/reminder/model_view/reminder_cubit.dart';
 
-class AddReminder extends StatelessWidget {
+class AddReminder extends StatefulWidget {
   const AddReminder({super.key});
 
   @override
+  State<AddReminder> createState() => _AddReminderState();
+}
+
+class _AddReminderState extends State<AddReminder> {
+  late TextEditingController titleController;
+  late TextEditingController notesController;
+  late TextEditingController timeController;
+  late TextEditingController startDateController;
+  late TextEditingController endDateController;
+  String? selectedRecurrence;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController();
+    notesController = TextEditingController();
+    timeController = TextEditingController();
+    startDateController = TextEditingController();
+    endDateController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    notesController.dispose();
+    timeController.dispose();
+    startDateController.dispose();
+    endDateController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController notesController = TextEditingController();
-    TextEditingController timeController = TextEditingController();
-    TextEditingController startDateController = TextEditingController();
-    TextEditingController endDateController = TextEditingController();
     String? selectedRecurrence;
     return Scaffold(
       backgroundColor: Color(0XFFf2f8ff),
@@ -164,18 +190,7 @@ class AddReminder extends StatelessWidget {
                                 textColor: Colors.white,
                                 width: 40.w,
                                 onPressed: () {
-                                  if (kDebugMode) {
-                                    print('title ${titleController.text} ');
-                                    print('descrip ${notesController.text} ');
-                                    print('freq $selectedRecurrence ');
-                                    print(
-                                      'start date ${startDateController.text} ',
-                                    );
-                                    print(
-                                      'end date ${endDateController.text} ',
-                                    );
-                                    print('time ${timeController.text} ');
-                                  }
+                                
 
                                   context.read<ReminderCubit>().postReminder(
                                     title: titleController.text,
@@ -206,7 +221,9 @@ class AddReminder extends StatelessWidget {
                             buttonColor: Colors.white,
                             textColor: kRedColor,
                             width: 40.w,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
                         ],
                       ),

@@ -72,10 +72,7 @@ class ProfileView extends StatelessWidget {
 
                 Text(
                   'ahmed@example.com',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: kSubTextColor,
-                  ),
+                  style: TextStyle(fontSize: 14, color: kPrimryColor),
                 ),
                 const SizedBox(height: 24),
 
@@ -111,7 +108,7 @@ class ProfileView extends StatelessWidget {
                 CustomCard(
                   icon: Icons.person_outline,
                   title: 'المعلومات الشخصية',
-                  iconColor: kSubTextColor,
+                  iconColor: kPrimryColor,
                 ),
                 CustomDivider(),
 
@@ -119,15 +116,13 @@ class ProfileView extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const SettingView(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const SettingView()),
                     );
                   },
                   child: CustomCard(
                     icon: Icons.settings_outlined,
                     title: 'الإعدادات',
-                    iconColor: kSubTextColor,
+                    iconColor: kPrimryColor,
                   ),
                 ),
                 CustomDivider(),
@@ -135,28 +130,28 @@ class ProfileView extends StatelessWidget {
                 CustomCard(
                   icon: Icons.privacy_tip_outlined,
                   title: 'سياسة الخصوصية',
-                  iconColor: kSubTextColor,
+                  iconColor: kPrimryColor,
                 ),
                 CustomDivider(),
 
                 CustomCard(
                   icon: Icons.description_outlined,
                   title: 'الشروط والأحكام',
-                  iconColor: kSubTextColor,
+                  iconColor: kPrimryColor,
                 ),
                 CustomDivider(),
 
                 CustomCard(
                   icon: Icons.contact_support_outlined,
                   title: 'تواصل معنا',
-                  iconColor: kSubTextColor,
+                  iconColor: kPrimryColor,
                 ),
                 CustomDivider(),
 
                 CustomCard(
                   icon: Icons.info_outline,
                   title: 'عن التطبيق',
-                  iconColor: kSubTextColor,
+                  iconColor: kPrimryColor,
                 ),
                 CustomDivider(),
 
@@ -164,15 +159,12 @@ class ProfileView extends StatelessWidget {
                   icon: Icons.logout_outlined,
                   title: 'تسجيل الخروج',
                   textColor: kRedColor,
-                  iconContainerColor: kRedColor,
+                  iconContainerColor: kHghtLightRedColor,
                   iconColor: kRedColor,
                 ),
 
                 const SizedBox(height: 12),
-                const Text(
-                  'الإصدار 1.0.0',
-                  style: TextStyle(fontSize: 14),
-                ),
+                const Text('الإصدار 1.0.0', style: TextStyle(fontSize: 14)),
               ],
             ),
           ],
