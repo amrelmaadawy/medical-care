@@ -43,10 +43,11 @@ dependencies:
   google_fonts: ^6.3.3
   dio: ^5.9.0
   bloc: ^9.1.0
-  flutter_bloc: ^9.1.1
   meta: ^1.17.0
   smooth_page_indicator: ^2.0.1
   shared_preferences: ^2.5.4
+  flutter_bloc: ^9.1.1
+
 
 dev_dependencies:
   flutter_test:
