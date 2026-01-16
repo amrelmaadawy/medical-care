@@ -47,6 +47,36 @@ class _NewDiagnosisViewState extends State<NewDiagnosisView> {
               UploadPhotoView(pageController: pageController),
               DoneUploadingView(pageController: pageController),
               ChooseTheSympotms(pageController: pageController),
+              Column(
+                children: [
+                                    SizedBox(height:20.h),
+
+                  CircleAvatar(
+                    radius: 12.sp,
+                    backgroundColor: kHghtLightGreenColor,
+                    child: Icon(Icons.check, color: kGreenColor, size: 12.sp),
+                  ),
+                  SizedBox(height: 5.h),
+
+                  Text(
+                    'اكتمل التحليل ',
+                    style: TextStyle(
+                      fontSize: 5.sp,
+                      color: kTextColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 1.h),
+                  Text(
+                    'جاري الانتقال الي نتائج التقييم....',
+                    style: TextStyle(
+                      fontSize: 5.sp,
+                      color: kSubTextColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
