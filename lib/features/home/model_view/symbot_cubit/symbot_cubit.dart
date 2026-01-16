@@ -7,7 +7,9 @@ part 'symbot_state.dart';
 
 class SymbotCubit extends Cubit<SymbotState> {
   SymbotCubit() : super(SymbotInitial());
- Future<void> getSymptoms() async {
+
+  bool isSelected = false;
+  Future<void> getSymptoms() async {
     emit(GetSymptomsLoading());
     try {
       List<Symptom> symbol = await HomeApi().getSymptoms();
@@ -17,8 +19,11 @@ class SymbotCubit extends Cubit<SymbotState> {
         print(e.toString());
       }
       emit(GetSymptomsError(e.toString()));
-
     }
   }
-  
+
+  void changeSelectedState() {
+    isSelected = !isSelected;
+    emit(ChangeSelectedStateSuccess());
+  }
 }

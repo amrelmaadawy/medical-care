@@ -18,3 +18,5 @@ class GetSymptomsError extends SymbotState {
   final String errorMessage;
   GetSymptomsError(this.errorMessage);
 }
+
+class ChangeSelectedStateSuccess extends SymbotState {}

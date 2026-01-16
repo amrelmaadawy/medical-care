@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
-import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/home/model_view/symbot_cubit/symbot_cubit.dart';
 import 'package:medical_care/features/home/view/done_uploading_view.dart';
 import 'package:medical_care/features/home/view/upload_photo_view.dart';
-import 'package:medical_care/features/home/view/widgets/choose_the_sympotms.dart';
+import 'package:medical_care/features/home/view/choose_the_sympotms.dart';
 
 class NewDiagnosisView extends StatefulWidget {
   const NewDiagnosisView({super.key});
