@@ -1,6 +1,7 @@
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/features/chat/view/chat_view.dart';
 import 'package:medical_care/features/history/view/history_view.dart';
 import 'package:medical_care/features/home/view/home_view.dart';
 import 'package:medical_care/features/profile/view/profile_view.dart';
@@ -22,7 +23,7 @@ class _LayoutViewState extends State<LayoutView> {
     HomeView(),
     HistoryView(),
     ReminderView(),
-    Container(),
+    ChatView(),
     ProfileView(),
   ];
   @override

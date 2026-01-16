@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';

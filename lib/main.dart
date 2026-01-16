@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:medical_care/core/size_config.dart';
+import 'package:medical_care/features/Auth/signin/signin_view.dart';
 import 'package:medical_care/features/Auth/signup/signup_view.dart';
 import 'package:medical_care/generated/l10n.dart';
 

@@ -6,9 +6,14 @@ import 'widgets/settings_switch_item.dart';
 import 'widgets/settings_divider.dart';
 import 'widgets/section_title.dart';
 
-class SettingView extends StatelessWidget {
+class SettingView extends StatefulWidget {
   const SettingView({super.key});
 
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +80,7 @@ class SettingView extends StatelessWidget {
                       SettingsSwitchItem(
                         icon: Icons.notifications_outlined,
                         title: 'تفعيل الإشعارات',
-                        value: true,
+                        value: false,
                         onTap: () {},
                         onChanged: (value) {},
                       ),
@@ -139,7 +144,7 @@ class SettingView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SectionTitle(title: 'البيانات والخصوصية'),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: CustomContainer(
