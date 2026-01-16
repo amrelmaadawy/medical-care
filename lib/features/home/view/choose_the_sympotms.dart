@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/size_config.dart';
@@ -7,10 +6,7 @@ import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/home/model_view/symbot_cubit/symbot_cubit.dart';
 
 class ChooseTheSympotms extends StatelessWidget {
-  const ChooseTheSympotms({
-    super.key,
-    required this.pageController,
-  });
+  const ChooseTheSympotms({super.key, required this.pageController});
 
   final PageController pageController;
 
@@ -18,6 +14,7 @@ class ChooseTheSympotms extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SymbotCubit, SymbotState>(
       builder: (context, state) {
+        final cubit = context.read<SymbotCubit>();
         return state is GetSymptomsError
             ? Text('ما تشغل النت يفلاح هجيب الداتا ازاي')
             : state is GetSymptomsSuccess
@@ -36,6 +33,7 @@ class ChooseTheSympotms extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+
                       subtitle: Text(
                         'حدد جميع الأعراض التي تلاحظها',
                         style: TextStyle(
@@ -47,35 +45,47 @@ class ChooseTheSympotms extends StatelessWidget {
                     ),
                     Expanded(
                       child: GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 12,
-                              mainAxisSpacing: 12,
-                              childAspectRatio: 1.3,
-                            ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 1.2,
+                        ),
                         itemCount: state.symbol.length,
                         itemBuilder: (BuildContext context, int index) {
+                          final isSelected = cubit.selectedStates[index];
                           return InkWell(
-                            onTap: ()
-                            {
-                              
+                            onTap: () {
+                              cubit.toggleSelection(index);
                             },
-                            child: Container(
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
                               decoration: BoxDecoration(
+                                color: isSelected
+                                    ? kHghtLightBlueColor
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(
                                   kDefBorderRadius,
                                 ),
-                                border: Border.all(color: kPrimryColor),
+                                border: Border.all(
+                                  color: isSelected ? kPrimryColor : kgreyColor,
+                                ),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    if (isSelected)
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          color: kPrimryColor,
+                                          size: 20,
+                                        ),
+                                      ),
                                     Text(
                                       state.symbol[index].name!,
                                       style: TextStyle(
@@ -104,9 +114,7 @@ class ChooseTheSympotms extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            kDefBorderRadius,
-                          ),
+                          borderRadius: BorderRadius.circular(kDefBorderRadius),
                         ),
                         minimumSize: Size(double.infinity, 7.h),
                       ),

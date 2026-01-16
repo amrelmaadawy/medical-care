@@ -8,11 +8,13 @@ part 'symbot_state.dart';
 class SymbotCubit extends Cubit<SymbotState> {
   SymbotCubit() : super(SymbotInitial());
 
-  bool isSelected = false;
+  List<bool> selectedStates = [];
+  List<Symptom> symbol = [];
   Future<void> getSymptoms() async {
     emit(GetSymptomsLoading());
     try {
-      List<Symptom> symbol = await HomeApi().getSymptoms();
+      symbol = await HomeApi().getSymptoms();
+      selectedStates = List.filled(symbol.length, false);
       emit(GetSymptomsSuccess(symbol));
     } catch (e) {
       if (kDebugMode) {
@@ -22,8 +24,29 @@ class SymbotCubit extends Cubit<SymbotState> {
     }
   }
 
-  void changeSelectedState() {
-    isSelected = !isSelected;
-    emit(ChangeSelectedStateSuccess());
+  void toggleSelection(int index) {
+    if (index >= 0 && index < selectedStates.length) {
+      selectedStates[index] = !selectedStates[index];
+      emit(GetSymptomsSuccess(symbol)); // emit عشان تحدث الـ UI
+    }
+  }
+
+  List<Symptom> getSelectedSymptoms() {
+    List<Symptom> selected = [];
+    for (int i = 0; i < symbol.length; i++) {
+      if (selectedStates[i]) {
+        selected.add(symbol[i]);
+      }
+    }
+    return selected;
+  }
+
+  bool hasSelection() {
+    return selectedStates.contains(true);
+  }
+
+  // عدد العناصر المختارة
+  int getSelectedCount() {
+    return selectedStates.where((selected) => selected).length;
   }
 }
