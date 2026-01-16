@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:medical_care/features/layout/view/layout_view.dart';
-import '../signin/signin_view.dart';
+import '../auth/signin/signin_view.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
