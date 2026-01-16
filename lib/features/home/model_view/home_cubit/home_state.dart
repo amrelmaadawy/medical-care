@@ -16,3 +16,4 @@ class GetHomeDataError extends HomeState {
   final String errorMessage;
   GetHomeDataError(this.errorMessage);
 }
+

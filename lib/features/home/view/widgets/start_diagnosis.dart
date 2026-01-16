@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
+import 'package:medical_care/features/home/view/new_diagnosis_view.dart';
 
 class StartDiagnosis extends StatelessWidget {
   const StartDiagnosis({super.key});
@@ -16,11 +17,13 @@ class StartDiagnosis extends StatelessWidget {
       width: double.infinity,
       height: 33.h,
       child: DottedBorder(
-        options: RectDottedBorderOptions(
+        options: RoundedRectDottedBorderOptions(
+          
           color: kPrimryColor,
           dashPattern: [5, 3],
           strokeWidth: 1.5,
           padding: EdgeInsets.all(16),
+          radius: Radius.circular(kDefBorderRadius),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -57,7 +60,12 @@ class StartDiagnosis extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => NewDiagnosisView()),
+                      );
+                    },
                     child: Text(
                       'ابدا التشخيص ',
                       style: TextStyle(color: Colors.white, fontSize: 3.5.sp),

@@ -45,6 +45,7 @@ dependencies:
   bloc: ^9.1.0
   flutter_bloc: ^9.1.1
   meta: ^1.17.0
+  smooth_page_indicator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

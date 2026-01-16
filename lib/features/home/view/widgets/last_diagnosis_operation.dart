@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
-import 'package:medical_care/features/home/model_view/home_cubit.dart';
+import 'package:medical_care/features/home/model_view/home_cubit/home_cubit.dart';
 
 class LastDiagnosisOperation extends StatelessWidget {
   const LastDiagnosisOperation({super.key});

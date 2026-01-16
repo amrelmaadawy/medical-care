@@ -20,4 +20,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GetHomeDataError(e.toString()));
     }
   }
+
+
 }

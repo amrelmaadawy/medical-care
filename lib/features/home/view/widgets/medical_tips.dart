@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 import 'package:medical_care/core/size_config.dart';
-import 'package:medical_care/features/home/model_view/home_cubit.dart';
+import 'package:medical_care/features/home/model_view/home_cubit/home_cubit.dart';
 import 'package:medical_care/features/home/view/widgets/custom_medical_tips_card.dart';
 
 class MedicalTips extends StatelessWidget {
