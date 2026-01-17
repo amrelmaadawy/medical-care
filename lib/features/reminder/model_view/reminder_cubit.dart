@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
@@ -29,45 +30,47 @@ class ReminderCubit extends Cubit<ReminderState> {
     } catch (e) {
       emit(GetReminderByIdError(e.toString()));
     }
-  }
-
- Future<void> postReminder({
+  }Future<void> postReminder({
   required String title,
   required String description,
   required RecurrenceRule recurrenceRules,
 }) async {
-  emit(GetReminderLoading()); // بدل PostReminderLoading
   try {
+    // 1. تنفيذ الـ Post
     await ReminderApi().postReminderData(
       title: title,
       description: description,
       recurrenceRules: recurrenceRules,
     );
-    await getAllReminders(); // ده هيملى الـ reminders ويعمل GetReminderSuccess
+
+    // 2. جلب البيانات فور النجاح
+    reminders = await ReminderApi().getReminderData();
+    emit(GetReminderSuccess(List.from(reminders)));
+    
+  } on DioException catch (e) {
+    // هنا السر: طباعة الرد القادم من السيرفر (Response Body)
+    // غالباً ستجد رسالة مثل: "The frequency field is required"
+    String errorMessage = e.response?.data['message'] ?? "حدث خطأ غير متوقع";
+    if (e.response?.data['errors'] != null) {
+       errorMessage = e.response?.data['errors'].toString() ?? errorMessage;
+    }
+    emit(GetReminderError(errorMessage));
+    print("SERVER ERROR: $errorMessage"); 
   } catch (e) {
     emit(GetReminderError(e.toString()));
-    if (kDebugMode) {
-      print('$e==========================================================');
-    }
   }
 }
-
-
-
   Future<void> deletReminder({required int id}) async {
-    emit(DeletReminderLoading());
     try {
+      // التحديث المحلي السريع (اختياري: ممكن تمسحه بعد نجاح الـ API أو قبله)
       await ReminderApi().deleteReminderData(id: id);
-      await getAllReminders();
-      emit(GetReminderSuccess(reminders));
+      reminders.removeWhere((element) => element.id == id);
+      
+      emit(GetReminderSuccess(List.from(reminders)));
     } catch (e) {
-      if (kDebugMode) {
-        print('$e==========================================================');
-      }
       emit(DeletReminderError(e.toString()));
     }
   }
-
   Future<void> editActiveReminder({
     required int id,
     required int active,

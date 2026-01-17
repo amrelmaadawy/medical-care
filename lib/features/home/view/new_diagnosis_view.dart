@@ -22,6 +22,7 @@ class _NewDiagnosisViewState extends State<NewDiagnosisView> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: ListTile(
           title: Text(

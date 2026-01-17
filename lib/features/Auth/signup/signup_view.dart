@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 
@@ -29,17 +30,13 @@ class _SignUpViewState extends State<SignUpView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Icon
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF2F80ED),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.favorite,
+                CircleAvatar(
+                  radius: 11.sp,
+                  backgroundColor: kPrimryColor,
+                  child: Icon(
+                    Icons.health_and_safety_outlined,
                     color: Colors.white,
-                    size: 40,
+                    size: 13.sp,
                   ),
                 ),
                 const SizedBox(height: 32),

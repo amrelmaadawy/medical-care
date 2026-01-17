@@ -25,27 +25,35 @@ class CustomHomeAppBar extends StatelessWidget {
           children: [
             Text(
               'مرحبا ',
-              style: TextStyle(color: kSubTextColor, fontSize: 3.8.sp),
+              style: TextStyle(
+                color: kSubTextColor,
+                fontSize: 4.sp,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             Text(
               'احمد محمد',
-              style: TextStyle(fontSize: 3.8.sp, color: kTextColor),
+              style: TextStyle(
+                fontSize: 4.sp,
+                color: kTextColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
         Spacer(),
-        CircleAvatar(
-          backgroundColor: kgreyHighlightColor,
-          radius: 6.sp,
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications_active_outlined,
-              color: kSubTextColor,
-              size: 7.sp,
-            ),
-          ),
-        ),
+        // CircleAvatar(
+        //   backgroundColor: kgreyHighlightColor,
+        //   radius: 6.sp,
+        //   child: IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(
+        //       Icons.notifications_active_outlined,
+        //       color: kSubTextColor,
+        //       size: 7.sp,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

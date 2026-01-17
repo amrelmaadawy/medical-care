@@ -14,147 +14,88 @@ class ReminderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReminderCubit, ReminderState>(
-      builder: (context, state) {
-        return SizedBox(
-          height: 19.h,
-          child: Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(kDefBorderRadius),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: 15.w,
-                        height: 15.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            kDefBorderRadius - 5,
-                          ),
-                          color: kHghtLightBlueColor,
-                        ),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          color: kPrimryColor,
-                          size: 7.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 5.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        reminderModel.title!,
-                        style: TextStyle(
-                          fontSize: 4.2.sp,
-                          color: kTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        reminderModel.recurrenceRules![0].time!,
-                        style: TextStyle(
-                          fontSize: 3.8.sp,
-                          color: kSubTextColor,
-                        ),
-                      ),
-                      Text(
-                        getRecurrenceArabic(
-                          reminderModel.recurrenceRules![0].frequency!,
-                        ),
-                        style: TextStyle(
-                          fontSize: 3.8.sp,
-                          color: kSubTextColor,
-                        ),
-                      ),
-                      SizedBox(height: 2.h),
-                      Row(
-                        children: [
-                          // CustomElevatedButton(
-                          //   widget: Icon(
-                          //     Icons.edit_outlined,
-                          //     color: kPrimryColor,
-                          //     size: 5.sp,
-                          //   ),
-                          //   text: '',
-                          //   borderColor: kHghtLightBlueColor,
-                          //   textColor: kPrimryColor,
-                          //   width: 18.w,
-                          //   onPressed: () {},
-                          // ),
-                          CustomElevatedButton(
-                            widget: Icon(
-                              Icons.delete_outline_outlined,
-                              color: kRedColor,
-                              size: 5.sp,
-                            ),
-                            text: '',
-                            borderColor: kHghtLightRedColor,
-                            textColor: kRedColor,
-                            width: 18.w,
-                            onPressed: () async {
-                              await context.read<ReminderCubit>().deletReminder(
-                                id: reminderModel.id!,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-
-                      // InkWell(
-                      //   onTap: () async {
-                      //     await context.read<ReminderCubit>().deletReminder(
-                      //       id: reminderModel.id!,
-                      //     );
-                      //   },
-                      //   child: Row(
-                      //     children: [
-                      //       Icon(
-                      //         Icons.delete_outline,
-                      //         color: kRedColor,
-                      //         size: 7.sp,
-                      //       ),
-                      //       Text(
-                      //         'حذف التذكير',
-                      //         style: TextStyle(
-                      //           fontSize: 3.5.sp,
-                      //           color: kRedColor,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                  Spacer(),
-                  Switch(
-                    value: reminderModel.active == 1 ? true : false,
-                    onChanged: (v) {
-                      context.read<ReminderCubit>().editActiveReminder(
-                        id: reminderModel.id!,
-                        active: v == true ? 1 : 0,
-                      );
-                    },
-                    activeThumbColor: kHghtLightBlueColor,
-                    activeTrackColor: kPrimryColor,
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: kgreyColor,
-                  ),
-                ],
+    // حذفنا الـ BlocBuilder من هنا لزيادة الأداء
+    return SizedBox(
+      height: 19.h,
+      child: Card(
+        color: Colors.white,
+        elevation: 0.5, // إضافة ظل خفيف لشكل أشيك
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kDefBorderRadius),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              // أيقونة التذكير
+              Container(
+                width: 15.w,
+                height: 15.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(kDefBorderRadius - 5),
+                  color: kHghtLightBlueColor,
+                ),
+                child: Icon(
+                  Icons.notifications_outlined,
+                  color: kPrimryColor,
+                  size: 24,
+                ),
               ),
-            ),
+              SizedBox(width: 4.w),
+              // تفاصيل التذكير
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      reminderModel.title ?? "",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: kTextColor,
+                      ),
+                    ),
+                    Text(
+                      "${reminderModel.recurrenceRules![0].time} - ${getRecurrenceArabic(reminderModel.recurrenceRules![0].frequency!)}",
+                      style: TextStyle(fontSize: 14, color: kSubTextColor),
+                    ),
+                    const SizedBox(height: 8),
+                    // زر الحذف
+                    CustomElevatedButton(
+                      widget: Icon(
+                        Icons.delete_outline_outlined,
+                        color: kRedColor,
+                        size: 5.sp,
+                      ),
+                      text: '',
+                      borderColor: kHghtLightRedColor,
+                      textColor: kRedColor,
+                      width: 18.w,
+                      onPressed: () async {
+                        await context.read<ReminderCubit>().deletReminder(
+                          id: reminderModel.id!,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              // زر التشغيل/الإيقاف
+              Switch(
+                value: reminderModel.active == 1,
+                onChanged: (v) {
+                  context.read<ReminderCubit>().editActiveReminder(
+                    id: reminderModel.id!,
+                    active: v ? 1 : 0,
+                  );
+                },
+                activeColor: kPrimryColor,
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

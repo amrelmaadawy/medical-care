@@ -23,7 +23,7 @@ class DoctorAhmedChatView extends StatelessWidget {
               backgroundColor: kgreyHighlightColor,
               child: Icon(Icons.person, color: kSubTextColor),
             ),
-            
+
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -39,16 +39,13 @@ class DoctorAhmedChatView extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   SizedBox(height: 2),
                   Row(
                     children: [
                       Text(
                         'طب الأطفال',
-                        style: TextStyle(
-                          color: kSubTextColor,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: kSubTextColor, fontSize: 12),
                       ),
                       SizedBox(width: 6),
                       _OnlineDot(),
@@ -60,7 +57,6 @@ class DoctorAhmedChatView extends StatelessWidget {
           ],
         ),
         actions: [
-        
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.videocam_outlined, color: kTextColor),
@@ -69,7 +65,7 @@ class DoctorAhmedChatView extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.call_outlined, color: kTextColor),
           ),
-            IconButton(
+          IconButton(
             onPressed: () {},
             icon: const Icon(Icons.more_vert, color: kTextColor),
           ),
@@ -158,10 +154,7 @@ class _IncomingMessage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            time,
-            style: const TextStyle(color: kgreyColor, fontSize: 11),
-          ),
+          Text(time, style: const TextStyle(color: kgreyColor, fontSize: 11)),
         ],
       ),
     );
@@ -195,10 +188,7 @@ class _OutgoingMessage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            time,
-            style: const TextStyle(color: kgreyColor, fontSize: 11),
-          ),
+          Text(time, style: const TextStyle(color: kgreyColor, fontSize: 11)),
         ],
       ),
     );

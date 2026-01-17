@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
-import 'package:medical_care/features/chat/view/doctor_Ahmed_chat_view.dart';
+import 'package:medical_care/features/chat/view/doctor_ahmed_chat_view.dart';
 import 'package:medical_care/features/chat/view/doctor_khaled_chat_view.dart';
 import 'package:medical_care/features/chat/view/doctor_sara_chat_view.dart';
 import 'package:medical_care/features/chat/view/widgets/doctor_item.dart';
@@ -39,8 +39,12 @@ class ChatView extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'البحث عن الأطباء',
-                  hintStyle: TextStyle(color: kgreyColor, fontSize: 14),
-                  prefixIcon: Icon(Icons.search, color: kgreyColor, size: 20),
+                  hintStyle: TextStyle(color: kSubTextColor, fontSize: 14),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: kSubTextColor,
+                    size: 20,
+                  ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 16,

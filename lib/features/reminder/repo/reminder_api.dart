@@ -22,29 +22,31 @@ class ReminderApi extends ReminderRepo {
     print(reminders);
     return reminders;
   }
+@override
+Future<void> postReminderData({
+  required String title,
+  required String description,
+  bool active = true,
+  required RecurrenceRule recurrenceRules,
+}) async {
+  // تأكد من تحويل كل القيم لنصوص أو أرقام صريحة
+  final Map<String, dynamic> data = {
+    "title": title,
+    "description": description,
+    "active": active ? 1 : 0, // تحويل لـ int لضمان التوافق
+    "recurrence_rules": [
+      {
+        "frequency": recurrenceRules.frequency ?? "daily",
+        "interval": recurrenceRules.interval ?? 1,
+        "time": recurrenceRules.time,
+        "start_date": recurrenceRules.startDate,
+        "end_date": recurrenceRules.endDate,
+      },
+    ],
+  };
 
-  @override
-  Future<void> postReminderData({
-    required String title,
-    required String description,
-    bool active = true,
-    required RecurrenceRule recurrenceRules,
-  }) async {
-    await dio.postData('https://graduation.coderaeg.com/api/reminders', {
-      "title": title,
-      "description": description,
-      "active": active,
-      "recurrence_rules": [
-        {
-          "frequency": recurrenceRules.frequency,
-          "interval": recurrenceRules.interval,
-          "time": recurrenceRules.time,
-          "start_date": recurrenceRules.startDate,
-          "end_date": recurrenceRules.endDate,
-        },
-      ],
-    });
-  }
+  await dio.postData('https://graduation.coderaeg.com/api/reminders', data);
+}
 
   @override
   Future<void> updateReminderData({

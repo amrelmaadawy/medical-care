@@ -67,7 +67,7 @@ class DiagnosisItem extends StatelessWidget {
                   text: 'عرض',
                   borderColor: kPrimryColor,
                   textColor: kPrimryColor,
-                  width: 30.w,
+                  width: 28.w,
                   onPressed: () {},
                 ),
                 CustomElevatedButton(
@@ -79,7 +79,7 @@ class DiagnosisItem extends StatelessWidget {
                   text: 'تنزيل',
                   borderColor: kgreyHighlightColor,
                   textColor: kTextColor,
-                  width: 30.w,
+                  width: 28.w,
                   onPressed: () {},
                 ),
                 CustomElevatedButton(

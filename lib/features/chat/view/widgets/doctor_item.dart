@@ -31,10 +31,7 @@ class DoctorItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: kgreyHighlightColor,
-              width: 1,
-            ),
+            border: Border.all(color: kgreyHighlightColor, width: 1),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -44,14 +41,10 @@ class DoctorItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: avatarColor,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 30,
-                  ),
+                  child: Icon(Icons.person, color: Colors.white, size: 30),
                 ),
                 const SizedBox(width: 16),
-                
+
                 // Doctor Info
                 Expanded(
                   child: Column(
@@ -71,7 +64,7 @@ class DoctorItem extends StatelessWidget {
                           Text(
                             time,
                             style: TextStyle(
-                              color: kgreyColor,
+                              color: kSubTextColor,
                               fontSize: 12,
                             ),
                           ),
@@ -80,18 +73,12 @@ class DoctorItem extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         specialty,
-                        style: TextStyle(
-                          color: kSubTextColor,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: kSubTextColor, fontSize: 14),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         status,
-                        style: TextStyle(
-                          color: kSubTextColor,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: kSubTextColor, fontSize: 12),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

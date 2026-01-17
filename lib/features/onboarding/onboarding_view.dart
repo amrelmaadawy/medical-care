@@ -14,15 +14,8 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  // تعريف الـ Controller بشكل مباشر
   final PageController _pageController = PageController();
   int currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    // تم حذف الـ addPostFrameCallback لأنها كانت تسبب تأخير في عرض الصفحة الأولى
-  }
 
   @override
   void dispose() {
@@ -32,14 +25,14 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    // التأكد من تهيئة SizeConfig هنا لضمان عمل الـ .sp والـ .w والـ .h بشكل سليم
+    // تهيئة SizeConfig لضمان قراءة أبعاد الموبايل الحقيقي فوراً
     SizeConfig.init(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(kDefPadding),
+          padding: const EdgeInsets.symmetric(horizontal: kDefPadding),
           child: Column(
             children: [
               // زر التخطي
@@ -51,7 +44,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     'تخطي',
                     style: TextStyle(
                       color: kSubTextColor, 
-                      fontSize: 14, // يفضل استخدام قيم ثابتة أو التأكد من SizeConfig
+                      fontSize: 16, 
                     ),
                   ),
                 ),
@@ -61,12 +54,13 @@ class _OnboardingViewState extends State<OnboardingView> {
               Expanded(
                 child: PageView(
                   controller: _pageController,
+                  // إزالة const لضمان إعادة البناء السليم عند أول تحميل
                   onPageChanged: (index) {
                     setState(() {
                       currentPage = index;
                     });
                   },
-                  children: const [
+                  children: [
                     OnboardingPage(
                       icon: Icons.auto_awesome_outlined,
                       iconColor: kPrimryColor,
@@ -92,8 +86,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
               ),
 
-              SizedBox(height: 3.h),
-
               // مؤشر النقاط
               SmoothPageIndicator(
                 controller: _pageController,
@@ -108,7 +100,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
               ),
 
-              SizedBox(height: 5.h),
+              SizedBox(height: 4.h),
 
               // الأزرار السفلية
               Row(
@@ -136,8 +128,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                     },
                     child: Text(
                       currentPage == 2 ? 'ابدأ الآن' : 'التالي',
-                      style: TextStyle(
-                        fontSize: 16, // جرب استخدام 16 بدلاً من 5.sp للتأكد
+                      style: const TextStyle(
+                        fontSize: 16,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
@@ -150,7 +142,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       backgroundColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(color: kPrimryColor),
+                        side: const BorderSide(color: kPrimryColor),
                         borderRadius: BorderRadius.circular(kDefBorderRadius),
                       ),
                       minimumSize: Size(40.w, 6.h),
@@ -167,14 +159,14 @@ class _OnboardingViewState extends State<OnboardingView> {
                       'السابق',
                       style: TextStyle(
                         fontSize: 16,
-                        color: kPrimryColor,
+                        color: currentPage == 0 ? Colors.grey : kPrimryColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 2.h),
+              SizedBox(height: 4.h),
             ],
           ),
         ),
@@ -182,7 +174,6 @@ class _OnboardingViewState extends State<OnboardingView> {
     );
   }
 
-  // دالة الانتقال لصفحة التسجيل
   void _navigateToSignUp() {
     Navigator.pushReplacement(
       context,

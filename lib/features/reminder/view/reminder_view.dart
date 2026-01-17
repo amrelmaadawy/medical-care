@@ -50,28 +50,39 @@ class ReminderView extends StatelessWidget {
                 SizedBox(height: 30),
                 Expanded(
                   child: BlocBuilder<ReminderCubit, ReminderState>(
-  builder: (context, state) {
-    if (state is GetReminderSuccess) {
-      return state.reminders.isEmpty
-          ? Center(child: Text('لا توجد تذكيرات'))
-          : ListView.separated(
-              itemBuilder: (context, index) => ReminderItem(
-                reminderModel: state.reminders[index],
-              ),
-              separatorBuilder: (context, index) {
-                return SizedBox(height: 2.h);
-              },
-              itemCount: state.reminders.length,
-            );
-    } else if (state is GetReminderLoading) {
-      return Center(child: CircularProgressIndicator());
-    } else if (state is GetReminderError) {
-      return Center(child: Text('حدث خطأ'));
-    }
-    return Center(child: Text(''));
-  },
-),
+                    builder: (context, state) {
+                      // نأخذ القائمة من الـ Cubit مباشرة وليس من الـ state فقط
+                      final allReminders = context
+                          .read<ReminderCubit>()
+                          .reminders;
 
+                      // حالة التحميل الأولية فقط (عندما تكون القائمة فارغة تماماً)
+                      if (state is GetReminderLoading && allReminders.isEmpty) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      // حالة الخطأ والقائمة فارغة
+                      if (state is GetReminderError && allReminders.isEmpty) {
+                        return Center(child: Text('حدث خطأ في جلب البيانات'));
+                      }
+
+                      // عرض القائمة في كل الحالات الأخرى (Success أو تحديثات صامتة)
+                      if (allReminders.isEmpty) {
+                        return const Center(
+                          child: Text('لا توجد تذكيرات طبية'),
+                        );
+                      }
+
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        itemCount: allReminders.length,
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 2.h),
+                        itemBuilder: (context, index) =>
+                            ReminderItem(reminderModel: allReminders[index]),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

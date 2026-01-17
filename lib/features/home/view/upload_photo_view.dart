@@ -81,7 +81,7 @@ class UploadPhotoView extends StatelessWidget {
             onTap: () {
               pageController.nextPage(
                 duration: Duration(milliseconds: 500),
-                curve: Curves.bounceInOut,
+                curve: Curves.easeInOut,
               );
             },
             child: Column(

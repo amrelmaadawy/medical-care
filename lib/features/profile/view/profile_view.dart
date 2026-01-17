@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/profile/view/widgets/custom_card.dart';
 import 'package:medical_care/features/profile/view/widgets/custom_divider.dart';
 import 'package:medical_care/settings/setting_view.dart';
@@ -85,7 +86,7 @@ class ProfileView extends StatelessWidget {
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(kDefBorderRadius),
                       ),
                     ),
                     child: const Text(

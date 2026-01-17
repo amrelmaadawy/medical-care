@@ -30,7 +30,11 @@ class _HistoryViewState extends State<HistoryView> {
           children: [
             Text(
               'سجل التشخيصات',
-              style: TextStyle(color: kTextColor, fontSize: 4.sp),
+              style: TextStyle(
+                color: kTextColor,
+                fontSize: 4.5.sp,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(height: 2.h),
             CustomTextFormField(
