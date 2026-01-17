@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:medical_care/features/home/model/symptom.dart';
 import 'package:medical_care/features/home/repo/home_api.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'symbot_state.dart';
 
@@ -48,5 +49,11 @@ class SymbotCubit extends Cubit<SymbotState> {
   // عدد العناصر المختارة
   int getSelectedCount() {
     return selectedStates.where((selected) => selected).length;
+  }
+
+  List<XFile> selectedImages = [];
+
+  void updateImages(List<XFile> images) {
+    selectedImages = images;
   }
 }

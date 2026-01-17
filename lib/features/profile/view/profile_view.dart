@@ -4,6 +4,13 @@ import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/profile/view/widgets/custom_card.dart';
 import 'package:medical_care/features/profile/view/widgets/custom_divider.dart';
 import 'package:medical_care/settings/setting_view.dart';
+import 'package:medical_care/features/profile/view/edit_profile_view.dart';
+
+import 'package:medical_care/features/profile/view/personal_info_view.dart';
+import 'package:medical_care/features/profile/view/terms_conditions_view.dart';
+import 'package:medical_care/features/profile/view/contact_us_view.dart';
+import 'package:medical_care/features/profile/view/about_app_view.dart';
+import 'package:medical_care/features/profile/view/privacy_policy_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -80,7 +87,14 @@ class ProfileView extends StatelessWidget {
                 SizedBox(
                   width: 160,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfileView(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kPrimryColor,
                       foregroundColor: Colors.white,
@@ -106,10 +120,20 @@ class ProfileView extends StatelessWidget {
             /// -------------------- Menu --------------------
             Column(
               children: [
-                CustomCard(
-                  icon: Icons.person_outline,
-                  title: 'المعلومات الشخصية',
-                  iconColor: kPrimryColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PersonalInformationView(),
+                      ),
+                    );
+                  },
+                  child: CustomCard(
+                    icon: Icons.person_outline,
+                    title: 'المعلومات الشخصية',
+                    iconColor: kPrimryColor,
+                  ),
                 ),
                 CustomDivider(),
 
@@ -128,31 +152,69 @@ class ProfileView extends StatelessWidget {
                 ),
                 CustomDivider(),
 
-                CustomCard(
-                  icon: Icons.privacy_tip_outlined,
-                  title: 'سياسة الخصوصية',
-                  iconColor: kPrimryColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PrivacyPolicyView(),
+                      ),
+                    );
+                  },
+                  child: CustomCard(
+                    icon: Icons.privacy_tip_outlined,
+                    title: 'سياسة الخصوصية',
+                    iconColor: kPrimryColor,
+                  ),
                 ),
                 CustomDivider(),
 
-                CustomCard(
-                  icon: Icons.description_outlined,
-                  title: 'الشروط والأحكام',
-                  iconColor: kPrimryColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TermsAndConditionsView(),
+                      ),
+                    );
+                  },
+                  child: CustomCard(
+                    icon: Icons.description_outlined,
+                    title: 'الشروط والأحكام',
+                    iconColor: kPrimryColor,
+                  ),
                 ),
                 CustomDivider(),
 
-                CustomCard(
-                  icon: Icons.contact_support_outlined,
-                  title: 'تواصل معنا',
-                  iconColor: kPrimryColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ContactUsView()),
+                    );
+                  },
+                  child: CustomCard(
+                    icon: Icons.contact_support_outlined,
+                    title: 'تواصل معنا',
+                    iconColor: kPrimryColor,
+                  ),
                 ),
                 CustomDivider(),
 
-                CustomCard(
-                  icon: Icons.info_outline,
-                  title: 'عن التطبيق',
-                  iconColor: kPrimryColor,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutAppView(),
+                      ),
+                    );
+                  },
+                  child: CustomCard(
+                    icon: Icons.info_outline,
+                    title: 'عن التطبيق',
+                    iconColor: kPrimryColor,
+                  ),
                 ),
                 CustomDivider(),
 

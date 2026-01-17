@@ -14,6 +14,8 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.prefixIcon,
+    this.maxLines = 1,
+    this.onChanged,
   });
 
   final TextEditingController controller;
@@ -24,6 +26,9 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool obscureText;
+  final int maxLines;
+  final void Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     bool isWeb = MediaQuery.of(context).size.width >= 1024;
@@ -43,6 +48,8 @@ class CustomTextFormField extends StatelessWidget {
               ),
         SizedBox(height: isWeb ? 20 : 1.5.h),
         TextFormField(
+          onChanged: onChanged,
+          maxLines: maxLines,
           obscureText: obscureText,
           controller: controller,
           validator: validator,

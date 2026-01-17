@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:medical_care/core/helper/bloc_observer.dart';
 import 'package:medical_care/core/size_config.dart';
-import 'package:medical_care/features/onboarding/onboarding_view.dart';
+
+import 'package:medical_care/features/splash/view/splash_view.dart';
 import 'package:medical_care/generated/l10n.dart';
 
 void main() {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return Directionality(textDirection: TextDirection.rtl, child: child!);
       },
-      home: const OnboardingView(),
+      home: const SplashView(),
     );
   }
 }

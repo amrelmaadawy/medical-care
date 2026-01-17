@@ -14,6 +14,10 @@ class SettingView extends StatefulWidget {
 }
 
 class _SettingViewState extends State<SettingView> {
+  bool isNotifyEnabled = true;
+  bool isReminderEnabled = true;
+  bool isChatEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,21 +51,46 @@ class _SettingViewState extends State<SettingView> {
                       SettingsItem(
                         icon: Icons.lock_outline,
                         title: 'تغيير كلمة المرور',
-                        onTap: () {},
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'سيتم إرسال رابط تغيير كلمة المرور',
+                              ),
+                              backgroundColor: kPrimryColor,
+                            ),
+                          );
+                        },
                       ),
                       const SettingsDivider(),
                       SettingsItem(
                         icon: Icons.email_outlined,
                         title: 'البريد الإلكتروني',
                         subtitle: 'ahmed@example.com',
-                        onTap: () {},
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'لا يمكن تغيير البريد الإلكتروني حاليا',
+                              ),
+                              backgroundColor: kOrangeColor,
+                            ),
+                          );
+                        },
                       ),
                       const SettingsDivider(),
                       SettingsItem(
                         icon: Icons.phone_outlined,
                         title: 'رقم الهاتف',
                         subtitle: '+966 50 123 4567',
-                        onTap: () {},
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('سيتم فتح صفحة تعديل الرقم'),
+                              backgroundColor: kPrimryColor,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -80,97 +109,51 @@ class _SettingViewState extends State<SettingView> {
                       SettingsSwitchItem(
                         icon: Icons.notifications_outlined,
                         title: 'تفعيل الإشعارات',
-                        value: false,
-                        onTap: () {},
-                        onChanged: (value) {},
+                        value: isNotifyEnabled,
+                        onTap: () {
+                          setState(() {
+                            isNotifyEnabled = !isNotifyEnabled;
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            isNotifyEnabled = value;
+                          });
+                        },
                       ),
                       const SettingsDivider(),
                       SettingsSwitchItem(
                         icon: Icons.alarm_outlined,
                         title: 'إشعارات التذكيرات',
-                        value: true,
-                        onTap: () {},
-                        onChanged: (value) {},
+                        value: isReminderEnabled,
+                        onTap: () {
+                          setState(() {
+                            isReminderEnabled = !isReminderEnabled;
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            isReminderEnabled = value;
+                          });
+                        },
                       ),
                       const SettingsDivider(),
                       SettingsSwitchItem(
                         icon: Icons.chat_outlined,
                         title: 'إشعارات المحادثات',
-                        value: true,
-                        onTap: () {},
-                        onChanged: (value) {},
+                        value: isChatEnabled,
+                        onTap: () {
+                          setState(() {
+                            isChatEnabled = !isChatEnabled;
+                          });
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            isChatEnabled = value;
+                          });
+                        },
                       ),
                     ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SectionTitle(title: 'إعدادات التطبيق'),
-                const SizedBox(height: 12),
-                CustomContainer(
-                  child: Column(
-                    children: [
-                      SettingsItem(
-                        icon: Icons.language_outlined,
-                        title: 'اللغة',
-                        subtitle: 'العربية',
-                        onTap: () {},
-                      ),
-                      const SettingsDivider(),
-                      SettingsItem(
-                        icon: Icons.palette_outlined,
-                        title: 'المظهر',
-                        subtitle: 'فاتح',
-                        onTap: () {},
-                      ),
-                      const SettingsDivider(),
-                      SettingsItem(
-                        icon: Icons.text_fields_outlined,
-                        title: 'حجم الخط',
-                        subtitle: 'متوسط',
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SectionTitle(title: 'البيانات والخصوصية'),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: CustomContainer(
-                    child: Column(
-                      children: [
-                        SettingsItem(
-                          icon: Icons.delete_outline,
-                          title: 'حذف البيانات',
-                          onTap: () {},
-                        ),
-                        const SettingsDivider(),
-                        SettingsItem(
-                          icon: Icons.download_outlined,
-                          title: 'تصدير البيانات',
-                          onTap: () {},
-                        ),
-                        const SettingsDivider(),
-                        SettingsItem(
-                          icon: Icons.delete_forever_outlined,
-                          title: 'حذف الحساب',
-                          onTap: () {},
-                          iconColor: Colors.red,
-                          textColor: Colors.red,
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ],

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_care/core/components/custom_elevated_button.dart';
-import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
-import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/core/utils/frequancy_maping.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 import 'package:medical_care/features/reminder/model_view/reminder_cubit.dart';
@@ -14,88 +11,128 @@ class ReminderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // حذفنا الـ BlocBuilder من هنا لزيادة الأداء
-    return SizedBox(
-      height: 19.h,
-      child: Card(
-        color: Colors.white,
-        elevation: 0.5, // إضافة ظل خفيف لشكل أشيك
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kDefBorderRadius),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              // أيقونة التذكير
-              Container(
-                width: 15.w,
-                height: 15.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(kDefBorderRadius - 5),
-                  color: kHghtLightBlueColor,
-                ),
-                child: Icon(
-                  Icons.notifications_outlined,
-                  color: kPrimryColor,
-                  size: 24,
-                ),
+    return Card(
+      elevation: 2,
+      shadowColor: Colors.black12,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          children: [
+            // Icon Container
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: kPrimryColor.withOpacity(0.1),
+                shape: BoxShape.circle,
               ),
-              SizedBox(width: 4.w),
-              // تفاصيل التذكير
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+              child: Icon(
+                Icons.medication_outlined,
+                color: kPrimryColor,
+                size: 24,
+              ),
+            ),
+            SizedBox(width: 16),
+
+            // Text Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    reminderModel.title ?? "بدون عنوان",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: kTextColor,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  if (reminderModel.recurrenceRules != null &&
+                      reminderModel.recurrenceRules!.isNotEmpty)
                     Text(
-                      reminderModel.title ?? "",
+                      "${_formatTime(reminderModel.recurrenceRules![0].time)} - ${getRecurrenceArabic(reminderModel.recurrenceRules![0].frequency!)}",
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: kTextColor,
+                        fontSize: 13,
+                        color: kSubTextColor,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      "${reminderModel.recurrenceRules![0].time} - ${getRecurrenceArabic(reminderModel.recurrenceRules![0].frequency!)}",
-                      style: TextStyle(fontSize: 14, color: kSubTextColor),
-                    ),
-                    const SizedBox(height: 8),
-                    // زر الحذف
-                    CustomElevatedButton(
-                      widget: Icon(
-                        Icons.delete_outline_outlined,
-                        color: kRedColor,
-                        size: 5.sp,
-                      ),
-                      text: '',
-                      borderColor: kHghtLightRedColor,
-                      textColor: kRedColor,
-                      width: 18.w,
-                      onPressed: () async {
-                        await context.read<ReminderCubit>().deletReminder(
-                          id: reminderModel.id!,
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                ],
               ),
-              // زر التشغيل/الإيقاف
-              Switch(
+            ),
+
+            // Active Switch
+            Transform.scale(
+              scale: 0.8,
+              child: Switch(
                 value: reminderModel.active == 1,
+                activeColor: kPrimryColor,
                 onChanged: (v) {
                   context.read<ReminderCubit>().editActiveReminder(
                     id: reminderModel.id!,
                     active: v ? 1 : 0,
                   );
                 },
-                activeColor: kPrimryColor,
               ),
-            ],
-          ),
+            ),
+
+            // More Options (Delete)
+            PopupMenuButton<int>(
+              icon: Icon(Icons.more_vert, color: kSubTextColor),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              onSelected: (item) {
+                if (item == 0) {
+                  _deleteReminder(context);
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Row(
+                    children: [
+                      Icon(Icons.delete_outline, color: kRedColor, size: 20),
+                      SizedBox(width: 8),
+                      Text("حذف", style: TextStyle(color: kRedColor)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void _deleteReminder(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("حذف التذكير"),
+        content: Text("هل أنت متأكد من رغبتك في حذف هذا التذكير؟"),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text("إلغاء")),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(ctx);
+              await context.read<ReminderCubit>().deletReminder(
+                id: reminderModel.id!,
+              );
+            },
+            child: Text("حذف", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(String? time) {
+    if (time == null) return "";
+    // Basic formatting or leave as is if already formatted
+    return time;
   }
 }

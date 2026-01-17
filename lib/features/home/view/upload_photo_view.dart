@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medical_care/features/home/model_view/symbot_cubit/symbot_cubit.dart';
+import 'package:medical_care/core/helper/image_services.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
@@ -51,11 +54,16 @@ class UploadPhotoView extends StatelessWidget {
           SizedBox(height: 2.h),
 
           CustomDottedBorderWidget(
-            onTap: () {
-              pageController.nextPage(
-                duration: Duration(milliseconds: 500),
-                curve: Curves.bounceInOut,
-              );
+            onTap: () async {
+              await ImageService.pickImageFromCamera().then((image) {
+                if (image != null) {
+                  context.read<SymbotCubit>().updateImages([image]);
+                  pageController.nextPage(
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              });
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,11 +86,16 @@ class UploadPhotoView extends StatelessWidget {
           ),
           SizedBox(height: 2.h),
           CustomDottedBorderWidget(
-            onTap: () {
-              pageController.nextPage(
-                duration: Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
+            onTap: () async {
+              await ImageService.pickMultiImageFromGallery().then((images) {
+                if (images != null && images.isNotEmpty) {
+                  context.read<SymbotCubit>().updateImages(images);
+                  pageController.nextPage(
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              });
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

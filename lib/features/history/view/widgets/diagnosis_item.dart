@@ -2,12 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/components/custom_elevated_button.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
+import 'package:medical_care/features/history/model/assessments/assessment.dart';
+import 'package:medical_care/features/history/view/report_view.dart';
+import 'package:medical_care/features/history/view/utils/pdf_generator.dart';
 
 class DiagnosisItem extends StatelessWidget {
-  const DiagnosisItem({super.key});
+  final Assessment assessment;
+  final VoidCallback onDelete;
+
+  const DiagnosisItem({
+    super.key,
+    required this.assessment,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
+    bool isHighRisk = (assessment.riskPercentage ?? 0) > 50;
+
     return Card(
       color: Colors.white,
       child: Padding(
@@ -17,28 +29,40 @@ class DiagnosisItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  'تشخيص الأشعة السينية للصدر',
-                  style: TextStyle(color: kTextColor, fontSize: 4.sp),
+                Expanded(
+                  child: Text(
+                    assessment.reason ?? 'غير محدد',
+                    style: TextStyle(color: kTextColor, fontSize: 4.sp),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                Spacer(),
+                SizedBox(width: 5),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: kHghtLightGreenColor,
+                    color: isHighRisk
+                        ? kHghtLightRedColor
+                        : kHghtLightGreenColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     child: Text(
-                      'منخفض',
-                      style: TextStyle(fontSize: 3.5.sp, color: kGreenColor),
+                      isHighRisk ? 'مرتفع' : 'منخفض',
+                      style: TextStyle(
+                        fontSize: 3.5.sp,
+                        color: isHighRisk ? kRedColor : kGreenColor,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+            SizedBox(height: 1.h),
             Text(
-              '٢٨ نوفمبر ٢٠٢٥ - ٠٩:٣٠ صباحاً',
+              assessment.createdAt ?? '',
               style: TextStyle(fontSize: 3.5.sp, color: kSubTextColor),
             ),
             SizedBox(height: 1.h),
@@ -49,12 +73,16 @@ class DiagnosisItem extends StatelessWidget {
                   style: TextStyle(fontSize: 4.sp, color: kTextColor),
                 ),
                 Text(
-                  '15%',
-                  style: TextStyle(color: kGreenColor, fontSize: 4.sp),
+                  '${assessment.riskPercentage}%',
+                  style: TextStyle(
+                    color: isHighRisk ? kRedColor : kGreenColor,
+                    fontSize: 4.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 4.sp),
+            SizedBox(height: 2.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -68,7 +96,15 @@ class DiagnosisItem extends StatelessWidget {
                   borderColor: kPrimryColor,
                   textColor: kPrimryColor,
                   width: 28.w,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ReportView(assessment: assessment),
+                      ),
+                    );
+                  },
                 ),
                 CustomElevatedButton(
                   widget: Icon(
@@ -80,7 +116,9 @@ class DiagnosisItem extends StatelessWidget {
                   borderColor: kgreyHighlightColor,
                   textColor: kTextColor,
                   width: 28.w,
-                  onPressed: () {},
+                  onPressed: () {
+                    PdfGenerator.generateAndPrint(assessment);
+                  },
                 ),
                 CustomElevatedButton(
                   widget: Icon(
@@ -92,7 +130,7 @@ class DiagnosisItem extends StatelessWidget {
                   borderColor: kHghtLightRedColor,
                   textColor: kRedColor,
                   width: 18.w,
-                  onPressed: () {},
+                  onPressed: onDelete,
                 ),
               ],
             ),

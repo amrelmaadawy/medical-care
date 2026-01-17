@@ -22,10 +22,13 @@ class SettingsSwitchItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: const Color(0xFF2C3E50),
-            size: 24,
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2C3E50).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: const Color(0xFF2C3E50), size: 22),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -33,27 +36,27 @@ class SettingsSwitchItem extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: Color(0xFF2C3E50),
+                fontFamily: 'Cairo',
               ),
             ),
           ),
           Switch(
             value: value,
             onChanged: onChanged,
-            activeThumbColor: Colors.black,
-            activeTrackColor: Colors.blueGrey,
-            inactiveThumbColor: Colors.grey,
+            activeColor: Colors.white,
+            activeTrackColor: const Color(0xFF2C3E50),
+            inactiveThumbColor: Colors.white,
+            inactiveTrackColor: Colors.grey.shade300,
+            trackOutlineColor: MaterialStateProperty.all(Colors.transparent),
           ),
         ],
       ),
     );
 
     if (onTap != null) {
-      child = InkWell(
-        onTap: onTap,
-        child: child,
-      );
+      child = InkWell(onTap: onTap, child: child);
     }
 
     return child;

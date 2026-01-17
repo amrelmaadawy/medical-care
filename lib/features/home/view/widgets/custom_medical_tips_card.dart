@@ -34,21 +34,28 @@ class CustomMedicalTipsCard extends StatelessWidget {
               child: Icon(icon, color: kPrimryColor, size: 7.sp),
             ),
             SizedBox(width: 3.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 1.h),
+            SizedBox(
+              width: 60.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 1.h),
 
-                Text(
-                  title,
-                  style: TextStyle(color: kTextColor, fontSize: 4.sp),
-                ),
-                SizedBox(height: 1.h),
-                Text(
-                  subTitle,
-                  style: TextStyle(color: kSubTextColor, fontSize: 3.6.sp),
-                ),
-              ],
+                  Text(
+                    title,
+                    style: TextStyle(color: kTextColor, fontSize: 4.sp),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 1.h),
+                  Text(
+                    subTitle,
+                    style: TextStyle(color: kSubTextColor, fontSize: 3.6.sp),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

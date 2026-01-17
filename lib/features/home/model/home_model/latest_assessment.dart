@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:medical_care/features/history/model/assessments/assessment.dart';
+import 'package:medical_care/features/history/model/assessments/symptoms_selected.dart';
 
 class LatestAssessment {
   int? id;
@@ -113,6 +115,27 @@ class LatestAssessment {
       reason: reason ?? this.reason,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  Assessment toAssessment() {
+    return Assessment(
+      id: id,
+      userId: userId,
+      imagePath: imagePath,
+      riskPercentage: riskPercentage,
+      recommendation: recommendation,
+      recommendationEn: recommendationEn,
+      reportText: reportText,
+      symptomsText: symptomsText?.toString(),
+      symptomsSelected: symptomsSelected
+          ?.map((e) => SymptomsSelected.fromMap(e as Map<String, dynamic>))
+          .toList(),
+      status: status,
+      statusEn: statusEn,
+      reason: reason,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

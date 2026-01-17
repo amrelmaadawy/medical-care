@@ -4,6 +4,7 @@ import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
 import 'package:medical_care/features/home/model_view/home_cubit/home_cubit.dart';
+import 'package:medical_care/features/history/view/report_view.dart';
 
 class LastDiagnosisOperation extends StatelessWidget {
   const LastDiagnosisOperation({super.key});
@@ -85,7 +86,21 @@ class LastDiagnosisOperation extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (state.homeModel.latestAssessment != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReportView(
+                                    assessment: state
+                                        .homeModel
+                                        .latestAssessment!
+                                        .toAssessment(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                           child: Text(
                             'عرض التفاصيل',
                             style: TextStyle(
