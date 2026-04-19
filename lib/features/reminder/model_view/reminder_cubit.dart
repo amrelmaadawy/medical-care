@@ -119,14 +119,55 @@ class ReminderCubit extends Cubit<ReminderState> {
   }) async {
     emit(EditeActiveReminderLoading());
     try {
+      // 1. Update active status on the server
       await ReminderApi().editActiveReminderData(id: id, active: active);
-      await getAllReminders();
-      emit(GetReminderSuccess(reminders));
+
+      // 2. Sync the local notification immediately based on the new active value
+      if (active == 0) {
+        // Switch turned OFF → cancel the notification right away
+        await NotificationService.instance.cancelNotification(id);
+        if (kDebugMode) {
+          print('editActiveReminder: cancelled notification for id=$id');
+        }
+      } else {
+        // Switch turned ON → find the reminder in memory and schedule it
+        final reminder = reminders.firstWhere(
+          (r) => r.id == id,
+          orElse: () => ReminderModel(),
+        );
+        if (reminder.id != null &&
+            reminder.recurrenceRules != null &&
+            reminder.recurrenceRules!.isNotEmpty) {
+          final rule = reminder.recurrenceRules!.first;
+          final scheduledTime = NotificationService.parseScheduledTime(
+            timeStr: rule.time,
+            dateStr: rule.startDate,
+          );
+          if (scheduledTime != null) {
+            await NotificationService.instance.scheduleNotification(
+              id: id,
+              title: reminder.title ?? 'تذكير',
+              body: reminder.description ?? '',
+              scheduledTime: scheduledTime,
+            );
+            if (kDebugMode) {
+              print('editActiveReminder: scheduled notification for id=$id at $scheduledTime');
+            }
+          }
+        }
+      }
+
+      // 3. Update local list and emit success (no API re-fetch needed)
+      final index = reminders.indexWhere((r) => r.id == id);
+      if (index != -1) {
+        reminders[index] = reminders[index].copyWith(active: active);
+      }
+      emit(GetReminderSuccess(List.from(reminders)));
     } catch (e) {
       if (kDebugMode) {
-        print('$e==========================================================');
-        emit(EditeActiveReminderError(e.toString()));
+        print('editActiveReminder error: $e');
       }
+      emit(EditeActiveReminderError(e.toString()));
     }
   }
 }
