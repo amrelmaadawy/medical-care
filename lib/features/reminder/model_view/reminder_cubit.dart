@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:medical_care/core/services/notification_service.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/recurrence_rule.dart';
 import 'package:medical_care/features/reminder/model/reminder_model/reminder_model.dart';
 import 'package:medical_care/features/reminder/repo/reminder_api.dart';
@@ -16,6 +17,28 @@ class ReminderCubit extends Cubit<ReminderState> {
       reminders = await ReminderApi().getReminderData();
 
       emit(GetReminderSuccess(reminders));
+
+      // Reschedule notifications for all active reminders (restored after app restart)
+      for (final reminder in reminders) {
+        if ((reminder.active ?? 0) == 1 &&
+            reminder.id != null &&
+            reminder.recurrenceRules != null &&
+            reminder.recurrenceRules!.isNotEmpty) {
+          final rule = reminder.recurrenceRules!.first;
+          final scheduledTime = NotificationService.parseScheduledTime(
+            timeStr: rule.time,
+            dateStr: rule.startDate,
+          );
+          if (scheduledTime != null) {
+            await NotificationService.instance.scheduleNotification(
+              id: reminder.id!,
+              title: reminder.title ?? 'تذكير',
+              body: reminder.description ?? '',
+              scheduledTime: scheduledTime,
+            );
+          }
+        }
+      }
     } catch (e) {
       emit(GetReminderError(e.toString()));
     }
@@ -46,6 +69,23 @@ class ReminderCubit extends Cubit<ReminderState> {
     // 2. جلب البيانات فور النجاح
     reminders = await ReminderApi().getReminderData();
     emit(GetReminderSuccess(List.from(reminders)));
+
+    // 3. Schedule a local notification for the newly created reminder
+    final newReminder = reminders.lastOrNull;
+    if (newReminder?.id != null) {
+      final scheduledTime = NotificationService.parseScheduledTime(
+        timeStr: recurrenceRules.time,
+        dateStr: recurrenceRules.startDate,
+      );
+      if (scheduledTime != null) {
+        await NotificationService.instance.scheduleNotification(
+          id: newReminder!.id!,
+          title: title,
+          body: description,
+          scheduledTime: scheduledTime,
+        );
+      }
+    }
     
   } on DioException catch (e) {
     // هنا السر: طباعة الرد القادم من السيرفر (Response Body)
@@ -64,6 +104,8 @@ class ReminderCubit extends Cubit<ReminderState> {
     try {
       // التحديث المحلي السريع (اختياري: ممكن تمسحه بعد نجاح الـ API أو قبله)
       await ReminderApi().deleteReminderData(id: id);
+      // Cancel the local notification for this reminder
+      await NotificationService.instance.cancelNotification(id);
       reminders.removeWhere((element) => element.id == id);
       
       emit(GetReminderSuccess(List.from(reminders)));

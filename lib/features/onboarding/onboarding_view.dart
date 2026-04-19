@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
-import 'package:medical_care/features/auth/signup/signup_view.dart';
+import 'package:medical_care/features/auth/signin/signin_view.dart';
 import 'package:medical_care/features/onboarding/widgets/onboarding_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -177,7 +177,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   void _navigateToSignUp() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const SignUpView()),
+      MaterialPageRoute(builder: (context) => const SignInView()),
     );
   }
 }

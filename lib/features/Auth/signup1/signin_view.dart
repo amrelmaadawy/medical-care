@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/core/utils/app_padding.dart';
-import 'package:medical_care/features/auth/signup/widgets/custom_text_filed.dart';
+import 'package:medical_care/features/auth/signin/widgets/custom_text_field.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

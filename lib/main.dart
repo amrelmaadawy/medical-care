@@ -2,12 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:medical_care/core/helper/bloc_observer.dart';
+import 'package:medical_care/core/services/notification_service.dart';
 import 'package:medical_care/core/size_config.dart';
 
 import 'package:medical_care/features/splash/view/splash_view.dart';
 import 'package:medical_care/generated/l10n.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.instance.init();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
