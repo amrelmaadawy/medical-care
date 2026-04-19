@@ -167,6 +167,32 @@ class ImageService {
     }
   }
 
+  /// Pick a single image from the gallery WITHOUT manual permission check.
+  ///
+  /// On Android 13+ (API 33+), image_picker uses Android Photo Picker which
+  /// handles media permissions internally — no manual permission request needed.
+  ///
+  /// On older Android (< API 33), image_picker also handles READ_EXTERNAL_STORAGE.
+  ///
+  /// Returns the picked [XFile], or null if the user cancelled or an error occurred.
+  static Future<XFile?> pickSingleFromGallery() async {
+    if (_isPicking) return null;
+
+    try {
+      _isPicking = true;
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 85,
+      );
+      return image;
+    } catch (e) {
+      _logError('Error picking image from gallery', e);
+      return null;
+    } finally {
+      _isPicking = false;
+    }
+  }
+
   /// Save an image to the app's documents directory
   static Future<String?> saveImageToAppDirectory(XFile image) async {
     try {

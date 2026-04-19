@@ -87,15 +87,14 @@ class UploadPhotoView extends StatelessWidget {
           SizedBox(height: 2.h),
           CustomDottedBorderWidget(
             onTap: () async {
-              await ImageService.pickMultiImageFromGallery().then((images) {
-                if (images != null && images.isNotEmpty) {
-                  context.read<SymbotCubit>().updateImages(images);
-                  pageController.nextPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                }
-              });
+              final image = await ImageService.pickSingleFromGallery();
+              if (image != null) {
+                context.read<SymbotCubit>().updateImages([image]);
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              }
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
