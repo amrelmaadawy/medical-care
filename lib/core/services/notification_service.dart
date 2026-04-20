@@ -37,13 +37,21 @@ class NotificationService {
           AndroidFlutterLocalNotificationsPlugin
         >();
 
+    // Note: Do NOT request permissions here before runApp().
+    // It causes a native black screen hang on physical Androids!
+  }
+
+  /// Call this inside a StatefulWidget (e.g. SplashView or HomeView) AFTER runApp().
+  Future<void> requestPermissions() async {
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+
     // 4. Request POST_NOTIFICATIONS permission (Android 13+ / API 33+)
-    //    Without this the notification is silently dropped on Android 13+
     await androidPlugin?.requestNotificationsPermission();
 
     // 5. Check SCHEDULE_EXACT_ALARM permission (Android 12 / API 31-32)
-    //    This is a "special" permission that the user must grant from Settings.
-    //    On Android 13+ (API 33+) we declared USE_EXACT_ALARM which is auto-granted.
     final canSchedule = await androidPlugin?.canScheduleExactNotifications();
     if (canSchedule == false) {
       if (kDebugMode) {
@@ -52,7 +60,6 @@ class NotificationService {
           'opening system settings for user to enable it.',
         );
       }
-      // Opens "Alarms & Reminders" settings page so the user can allow it
       await androidPlugin?.requestExactAlarmsPermission();
     }
   }

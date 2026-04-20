@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/features/onboarding/onboarding_view.dart';
+import 'package:medical_care/core/services/notification_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -15,13 +16,28 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    // Navigate to OnboardingView after 3 seconds
-    Timer(const Duration(seconds: 3), () {
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    // 1. Await heavy initializations that might freeze some physical devices
+    try {
+      await NotificationService.instance.init();
+      await NotificationService.instance.requestPermissions();
+    } catch (e) {
+      debugPrint('Error during initialization: $e');
+    }
+
+    // 2. Add an artificial delay so splash is visible for at least 2 seconds
+    await Future.delayed(const Duration(seconds: 2));
+
+    // 3. Navigate securely
+    if (mounted) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const OnboardingView()),
       );
-    });
+    }
   }
 
   @override
