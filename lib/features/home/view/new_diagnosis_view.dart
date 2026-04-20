@@ -118,7 +118,6 @@ class _NewDiagnosisViewState extends State<NewDiagnosisView> {
                           child: Icon(Icons.check, color: kGreenColor, size: 12.sp),
                         ),
                         SizedBox(height: 5.h),
-                      
                         Text(
                           'تم الانتهاء من التحليل',
                           style: TextStyle(

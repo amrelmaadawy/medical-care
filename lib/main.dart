@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     SizeConfig.init(context);
     return MaterialApp(
       theme: ThemeData(
+        
         fontFamily: 'Cairo',
         scaffoldBackgroundColor: Colors.white,
       ),

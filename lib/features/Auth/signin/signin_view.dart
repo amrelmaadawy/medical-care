@@ -128,31 +128,45 @@ class _SignInViewState extends State<SignInView> {
                             fillColor: kgreyHighlightColor,
                             hintText: 'أدخل البريد الإلكتروني',
                             hintStyle: const TextStyle(
-                                color: kSubTextColor, fontSize: 14),
+                              color: kSubTextColor,
+                              fontSize: 14,
+                            ),
                             contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: kPrimryColor, width: 1),
+                                color: kPrimryColor,
+                                width: 1,
+                              ),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1),
+                                color: Colors.red,
+                                width: 1,
+                              ),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1.5),
+                                color: Colors.red,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                         ),
@@ -188,7 +202,9 @@ class _SignInViewState extends State<SignInView> {
                             fillColor: kgreyHighlightColor,
                             hintText: 'أدخل كلمة المرور',
                             hintStyle: const TextStyle(
-                                color: kSubTextColor, fontSize: 14),
+                              color: kSubTextColor,
+                              fontSize: 14,
+                            ),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _obscurePassword
@@ -197,32 +213,45 @@ class _SignInViewState extends State<SignInView> {
                                 color: kSubTextColor,
                               ),
                               onPressed: () => setState(
-                                  () => _obscurePassword = !_obscurePassword),
+                                () => _obscurePassword = !_obscurePassword,
+                              ),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: kPrimryColor, width: 1),
+                                color: kPrimryColor,
+                                width: 1,
+                              ),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1),
+                                color: Colors.red,
+                                width: 1,
+                              ),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(kDefBorderRadius),
+                              borderRadius: BorderRadius.circular(
+                                kDefBorderRadius,
+                              ),
                               borderSide: const BorderSide(
-                                  color: Colors.red, width: 1.5),
+                                color: Colors.red,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                         ),
@@ -239,15 +268,19 @@ class _SignInViewState extends State<SignInView> {
                                     onChanged: (_) {},
                                     visualDensity: VisualDensity.compact,
                                   ),
-                                  const Text('تذكرني',
-                                      style: TextStyle(fontSize: 13)),
+                                  const Text(
+                                    'تذكرني',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
                                 ],
                               ),
                             ),
                             const Text(
                               'نسيت كلمة المرور؟',
-                              style:
-                                  TextStyle(fontSize: 13, color: kPrimryColor),
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kPrimryColor,
+                              ),
                             ),
                           ],
                         ),
@@ -265,17 +298,19 @@ class _SignInViewState extends State<SignInView> {
                                       return;
                                     }
                                     context.read<SigninCubit>().signin(
-                                          email: _emailController.text.trim(),
-                                          password: _passwordController.text,
-                                        );
+                                      email: _emailController.text.trim(),
+                                      password: _passwordController.text,
+                                    );
                                   },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: kPrimryColor,
-                              disabledBackgroundColor:
-                                  kPrimryColor.withValues(alpha: 0.6),
+                              disabledBackgroundColor: kPrimryColor.withValues(
+                                alpha: 0.6,
+                              ),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(kDefBorderRadius),
+                                borderRadius: BorderRadius.circular(
+                                  kDefBorderRadius,
+                                ),
                               ),
                             ),
                             child: isLoading
@@ -303,13 +338,16 @@ class _SignInViewState extends State<SignInView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('ليس لديك حساب؟ ',
-                                style: TextStyle(fontSize: 13)),
+                            const Text(
+                              'ليس لديك حساب؟ ',
+                              style: TextStyle(fontSize: 13),
+                            ),
                             GestureDetector(
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const SignUpView()),
+                                  builder: (_) => const SignUpView(),
+                                ),
                               ),
                               child: const Text(
                                 'إنشاء حساب جديد',

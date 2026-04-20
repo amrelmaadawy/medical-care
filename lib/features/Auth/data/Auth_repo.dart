@@ -74,7 +74,7 @@ class AuthRepo {
       final dataMap = (responseData is Map && responseData['data'] != null)
           ? responseData['data']
           : responseData;
-          
+
       final model = AuthModel.fromJson(dataMap as Map<String, dynamic>);
 
       if (model.token.isNotEmpty) {
@@ -94,7 +94,7 @@ class AuthRepo {
         serverMsg = e.response?.data?['message']?.toString();
         errors = e.response?.data?['errors'];
       }
-      
+
       String errorMsg = serverMsg ?? 'حدث خطأ أثناء إنشاء الحساب';
       if (errors != null && errors is Map && errors.isNotEmpty) {
         final firstError = errors.values.first;

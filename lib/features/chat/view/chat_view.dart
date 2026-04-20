@@ -132,8 +132,15 @@ class _ConversationsTab extends StatelessWidget {
   }
 }
 
-class _DoctorsTab extends StatelessWidget {
+class _DoctorsTab extends StatefulWidget {
   const _DoctorsTab();
+
+  @override
+  State<_DoctorsTab> createState() => _DoctorsTabState();
+}
+
+class _DoctorsTabState extends State<_DoctorsTab> {
+  String _searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +153,13 @@ class _DoctorsTab extends StatelessWidget {
               color: kgreyHighlightColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const TextField(
-              decoration: InputDecoration(
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+              decoration: const InputDecoration(
                 hintText: 'البحث عن الأطباء',
                 hintStyle: TextStyle(color: kSubTextColor, fontSize: 14),
                 prefixIcon: Icon(
@@ -178,15 +190,25 @@ class _DoctorsTab extends StatelessWidget {
                 );
               } else if (state is DoctorsSuccess) {
                 final doctors = state.doctors;
-                if (doctors.isEmpty) {
-                  return const Center(child: Text('لا يوجد أطباء متاحين حالياً'));
+                
+                final filteredDoctors = _searchQuery.isEmpty 
+                    ? doctors 
+                    : doctors.where((doc) {
+                        final searchLower = _searchQuery.toLowerCase();
+                        final nameLower = doc.name.toLowerCase();
+                        final specLower = doc.specialization.toLowerCase();
+                        return nameLower.contains(searchLower) || specLower.contains(searchLower);
+                      }).toList();
+
+                if (filteredDoctors.isEmpty) {
+                  return const Center(child: Text('عفواً، لا يوجد طبيب يطابق بحثك'));
                 }
 
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: doctors.length,
+                  itemCount: filteredDoctors.length,
                   itemBuilder: (context, index) {
-                    final doctor = doctors[index];
+                    final doctor = filteredDoctors[index];
                     return DoctorItem(
                       name: doctor.name,
                       specialty: doctor.specialization.isNotEmpty ? doctor.specialization : 'تخصص غير محدد',
