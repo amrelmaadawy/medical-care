@@ -82,7 +82,7 @@ class HomeView extends StatelessWidget {
                                       'لسه مفيش تشخصيات ادخل جرب حظك يمكن تطلع مريض',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 3.sp,
+                                        fontSize: 2.4.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )

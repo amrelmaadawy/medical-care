@@ -19,4 +19,16 @@ class GetSymptomsError extends SymbotState {
   GetSymptomsError(this.errorMessage);
 }
 
+class SubmitDiagnosisLoading extends SymbotState {}
+
+class SubmitDiagnosisSuccess extends SymbotState {
+  final Map<String, dynamic> result;
+  SubmitDiagnosisSuccess(this.result);
+}
+
+class SubmitDiagnosisError extends SymbotState {
+  final String error;
+  SubmitDiagnosisError(this.error);
+}
+
 class ChangeSelectedStateSuccess extends SymbotState {}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/features/chat/data/repos/chat_repo.dart';
 import 'package:medical_care/features/chat/view/dynamic_chat_view.dart';
@@ -105,7 +104,8 @@ class _ConversationsTab extends StatelessWidget {
 
               return DoctorItem(
                 name: otherName,
-                specialty: conv.unreadCount > 0 ? 'غير مقروء: ${conv.unreadCount}' : 'لا يوجد رسائل غير مقروءة',
+                specialty: 'محادثة',
+                unreadCount: conv.unreadCount,
                 status: conv.lastMessage?.message ?? 'لا يوجد رسائل',
                 time: timeFormat,
                 onTap: () {
@@ -116,7 +116,11 @@ class _ConversationsTab extends StatelessWidget {
                         userName: otherName,
                       ),
                     ),
-                  );
+                  ).then((_) {
+                    if (context.mounted) {
+                      context.read<ConversationsCubit>().fetchConversations();
+                    }
+                  });
                 },
               );
             },

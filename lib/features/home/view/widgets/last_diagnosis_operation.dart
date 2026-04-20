@@ -13,108 +13,110 @@ class LastDiagnosisOperation extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return state is GetHomeDataSuccess
-            ? Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        if (state is GetHomeDataSuccess) {
+          if (state.homeModel.latestAssessment == null) {
+            return const SizedBox.shrink();
+          }
+          return Card(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'تشخيص الأشعة السينية للصدر',
-                            style: TextStyle(color: kTextColor, fontSize: 4.sp),
-                          ),
-                          Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: kHghtLightGreenColor,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'منخفض',
-                                style: TextStyle(
-                                  fontSize: 3.5.sp,
-                                  color: kGreenColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Text(
-                        '${state.homeModel.latestAssessment!.createdAt}',
-                        style: TextStyle(
-                          fontSize: 3.5.sp,
-                          color: kSubTextColor,
-                        ),
+                        'تشخيص الأشعة السينية للصدر',
+                        style: TextStyle(color: kTextColor, fontSize: 4.sp),
                       ),
-                      SizedBox(height: 1.h),
-                      Row(
-                        children: [
-                          Text(
-                            'مستوى الخطورة ',
-                            style: TextStyle(fontSize: 4.sp, color: kTextColor),
-                          ),
-                          Text(
-                            '${state.homeModel.latestAssessment!.riskPercentage ?? 'كحكه روح اعمل التشخيص عدل'}',
-                            style: TextStyle(
-                              color: kGreenColor,
-                              fontSize: 4.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4.sp),
+                      const Spacer(),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: kPrimryColor),
-                          borderRadius: BorderRadius.circular(kDefBorderRadius),
+                          borderRadius: BorderRadius.circular(30),
+                          color: kHghtLightGreenColor,
                         ),
-                        width: double.infinity,
-                        height: 5.h,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.circular(
-                                kDefBorderRadius,
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (state.homeModel.latestAssessment != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ReportView(
-                                    assessment: state
-                                        .homeModel
-                                        .latestAssessment!
-                                        .toAssessment(),
-                                  ),
-                                ),
-                              );
-                            }
-                          },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'عرض التفاصيل',
+                            'منخفض',
                             style: TextStyle(
-                              color: kPrimryColor,
                               fontSize: 3.5.sp,
+                              color: kGreenColor,
                             ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              )
-            : Text('شغل النت يعاااااام');
+                  Text(
+                    '${state.homeModel.latestAssessment!.createdAt}',
+                    style: TextStyle(
+                      fontSize: 3.5.sp,
+                      color: kSubTextColor,
+                    ),
+                  ),
+                  SizedBox(height: 1.h),
+                  Row(
+                    children: [
+                      Text(
+                        'مستوى الخطورة ',
+                        style: TextStyle(fontSize: 4.sp, color: kTextColor),
+                      ),
+                      Text(
+                        '${state.homeModel.latestAssessment!.riskPercentage ?? 'غير محدد'}',
+                        style: TextStyle(
+                          color: kGreenColor,
+                          fontSize: 4.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4.sp),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: kPrimryColor),
+                      borderRadius: BorderRadius.circular(kDefBorderRadius),
+                    ),
+                    width: double.infinity,
+                    height: 5.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(
+                            kDefBorderRadius,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReportView(
+                              assessment: state
+                                  .homeModel
+                                  .latestAssessment!
+                                  .toAssessment(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'عرض التفاصيل',
+                        style: TextStyle(
+                          color: kPrimryColor,
+                          fontSize: 3.5.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return const SizedBox.shrink();
       },
     );
   }

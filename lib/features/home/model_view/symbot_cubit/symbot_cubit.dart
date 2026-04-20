@@ -56,4 +56,40 @@ class SymbotCubit extends Cubit<SymbotState> {
   void updateImages(List<XFile> images) {
     selectedImages = images;
   }
+
+  int? patientAge;
+  String? patientGender;
+  int? durationDays;
+
+  Future<void> submitDiagnosis() async {
+    if (selectedImages.isEmpty) {
+      emit(SubmitDiagnosisError("الرجاء رفع صورة الطفح الجلدي"));
+      return;
+    }
+
+    final selectedSymptomsList = getSelectedSymptoms().map((e) => e.name).toList();
+    if (selectedSymptomsList.isEmpty) {
+      emit(SubmitDiagnosisError("الرجاء اختيار بعض الأعراض"));
+      return;
+    }
+
+    final symptomsText = selectedSymptomsList.join("، ");
+
+    emit(SubmitDiagnosisLoading());
+    try {
+      final result = await HomeApi().submitAiDiagnosis(
+        imagePath: selectedImages.first.path,
+        symptomsText: symptomsText,
+        age: patientAge,
+        gender: patientGender,
+        durationDays: durationDays,
+      );
+      emit(SubmitDiagnosisSuccess(result));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      emit(SubmitDiagnosisError("فشل إرسال التشخيص، تأكد من الإنترنت وحاول مرة أخرى"));
+    }
+  }
 }

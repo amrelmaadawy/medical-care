@@ -8,6 +8,7 @@ class DoctorItem extends StatelessWidget {
   final String time;
   final Color avatarColor;
   final VoidCallback? onTap;
+  final int unreadCount;
 
   const DoctorItem({
     super.key,
@@ -15,6 +16,7 @@ class DoctorItem extends StatelessWidget {
     required this.specialty,
     required this.status,
     required this.time,
+    this.unreadCount = 0,
     this.avatarColor = kLightBlueColor,
     this.onTap,
   });
@@ -71,9 +73,31 @@ class DoctorItem extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        specialty,
-                        style: TextStyle(color: kSubTextColor, fontSize: 14),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              specialty,
+                              style: TextStyle(color: kSubTextColor, fontSize: 14),
+                            ),
+                          ),
+                          if (unreadCount > 0)
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: kHghtLightGreenColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                unreadCount.toString(),
+                                style: const TextStyle(
+                                  color: kGreenColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                       const SizedBox(height: 4),
                       Text(

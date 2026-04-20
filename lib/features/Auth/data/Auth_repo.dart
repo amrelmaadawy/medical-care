@@ -21,10 +21,14 @@ class AuthRepo {
         data: {'email': email, 'password': password, 'device_name': 'mobile'},
       );
 
-      final data = response.data;
-      if (data == null) throw Exception('الاستجابة فارغة من السيرفر');
+      final responseData = response.data;
+      if (responseData == null) throw Exception('الاستجابة فارغة من السيرفر');
 
-      final model = AuthModel.fromJson(data as Map<String, dynamic>);
+      final dataMap = (responseData is Map && responseData['data'] != null)
+          ? responseData['data']
+          : responseData;
+
+      final model = AuthModel.fromJson(dataMap as Map<String, dynamic>);
 
       if (model.token.isNotEmpty) {
         await PrefHelper.saveToken(model.token);

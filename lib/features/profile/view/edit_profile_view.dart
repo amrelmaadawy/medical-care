@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_care/core/components/custom_elevated_button.dart';
 import 'package:medical_care/core/components/custom_text_form_field.dart';
-import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 
 class EditProfileView extends StatefulWidget {
