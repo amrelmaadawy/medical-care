@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:medical_care/core/helper/type_parser.dart';
 
 class Symptom {
   int? id;
@@ -14,10 +15,10 @@ class Symptom {
   }
 
   factory Symptom.fromMap(Map<String, dynamic> data) => Symptom(
-    id: data['id'] as int?,
-    name: data['name'] as String?,
-    description: data['description'] as String?,
-    category: data['category'] as String?,
+    id: TypeParser.parseInt(data['id']),
+    name: TypeParser.parseString(data['name']),
+    description: TypeParser.parseString(data['description']),
+    category: TypeParser.parseString(data['category']),
   );
 
   Map<String, dynamic> toMap() => {

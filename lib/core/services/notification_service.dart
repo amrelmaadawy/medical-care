@@ -27,15 +27,15 @@ class NotificationService {
       print('NotificationService: device timezone = $deviceTimezone');
     }
 
-    // 3. Initialize the plugin with the app launcher icon
-    const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    // 3. Initialize the plugin with the notification valid icon
+    const androidSettings = AndroidInitializationSettings('ic_notification');
     const initSettings = InitializationSettings(android: androidSettings);
     await _plugin.initialize(initSettings);
 
     final androidPlugin = _plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+          AndroidFlutterLocalNotificationsPlugin
+        >();
 
     // 4. Request POST_NOTIFICATIONS permission (Android 13+ / API 33+)
     //    Without this the notification is silently dropped on Android 13+
@@ -72,7 +72,8 @@ class NotificationService {
     if (scheduledTime.isBefore(DateTime.now())) {
       if (kDebugMode) {
         print(
-            'NotificationService: skipping past time id=$id ($scheduledTime)');
+          'NotificationService: skipping past time id=$id ($scheduledTime)',
+        );
       }
       return;
     }
@@ -107,7 +108,8 @@ class NotificationService {
 
     if (kDebugMode) {
       print(
-          'NotificationService: scheduled id=$id at $scheduledTime (tz=$tzScheduled)');
+        'NotificationService: scheduled id=$id at $scheduledTime (tz=$tzScheduled)',
+      );
     }
   }
 

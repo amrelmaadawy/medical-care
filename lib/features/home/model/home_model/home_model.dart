@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:medical_care/core/helper/type_parser.dart';
 import 'package:medical_care/features/home/model/home_model/latest_assessment.dart';
 import 'package:medical_care/features/home/model/home_model/medical_advice.dart';
 
@@ -20,18 +21,18 @@ class HomeModel {
   }
 
   factory HomeModel.fromMap(Map<String, dynamic> data) {
-    final responseData = data['data'] as Map<String, dynamic>?;
+    final responseData = TypeParser.parseMap(data['data']);
 
     return HomeModel(
-      latestAssessment: responseData?['latest_assessment'] == null
+      latestAssessment: responseData?['latest_assessment'] == null || responseData?['latest_assessment'] is bool
           ? null
           : LatestAssessment.fromMap(
               responseData!['latest_assessment'] as Map<String, dynamic>,
             ),
-      medicalAdvices: (responseData?['medical_advices'] as List<dynamic>?)
+      medicalAdvices: TypeParser.parseList<dynamic>(responseData?['medical_advices'])
           ?.map((e) => MedicalAdvice.fromMap(e as Map<String, dynamic>))
           .toList(),
-      totalAssessments: responseData?['total_assessments'] as int?,
+      totalAssessments: TypeParser.parseInt(responseData?['total_assessments']),
     );
   }
 

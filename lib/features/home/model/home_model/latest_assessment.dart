@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:medical_care/core/helper/type_parser.dart';
 import 'package:medical_care/features/history/model/assessments/assessment.dart';
 import 'package:medical_care/features/history/model/assessments/symptoms_selected.dart';
 
@@ -42,22 +43,22 @@ class LatestAssessment {
 
   factory LatestAssessment.fromMap(Map<String, dynamic> data) {
     return LatestAssessment(
-      id: data['id'] as int?,
-      userId: data['user_id'] as int?,
-      imagePath: (data['image_path'] as List<dynamic>?)
+      id: TypeParser.parseInt(data['id']),
+      userId: TypeParser.parseInt(data['user_id']),
+      imagePath: TypeParser.parseList<dynamic>(data['image_path'])
           ?.map((e) => e.toString())
           .toList(),
-      riskPercentage: data['risk_percentage'] as int?,
+      riskPercentage: TypeParser.parseInt(data['risk_percentage']),
       recommendation: data['recommendation'],
       recommendationEn: data['recommendation_en'],
       reportText: data['report_text'],
       symptomsText: data['symptoms_text'],
-      symptomsSelected: data['symptoms_selected'] as List<dynamic>?,
-      status: data['status'] as String?,
-      statusEn: data['status_en'] as String?,
+      symptomsSelected: TypeParser.parseList<dynamic>(data['symptoms_selected']),
+      status: TypeParser.parseString(data['status']),
+      statusEn: TypeParser.parseString(data['status_en']),
       reason: data['reason'],
-      createdAt: data['created_at'] as String?,
-      updatedAt: data['updated_at'] as String?,
+      createdAt: TypeParser.parseString(data['created_at']),
+      updatedAt: TypeParser.parseString(data['updated_at']),
     );
   }
 
