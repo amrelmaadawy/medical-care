@@ -37,10 +37,70 @@ class AuthRepo {
       if (kDebugMode) {
         print('AuthRepo.login error: ${e.response?.data}');
       }
-      final serverMsg = e.response?.data?['message']?.toString();
+      String? serverMsg;
+      if (e.response?.data is Map) {
+        serverMsg = e.response?.data?['message']?.toString();
+      }
       throw Exception(
         serverMsg ?? 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
       );
+    }
+  }
+
+  Future<AuthModel> register({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/api/register',
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': passwordConfirmation,
+        },
+      );
+
+      final responseData = response.data;
+      if (responseData == null) throw Exception('الاستجابة فارغة من السيرفر');
+
+      final dataMap = (responseData is Map && responseData['data'] != null)
+          ? responseData['data']
+          : responseData;
+          
+      final model = AuthModel.fromJson(dataMap as Map<String, dynamic>);
+
+      if (model.token.isNotEmpty) {
+        await PrefHelper.saveToken(model.token);
+        await PrefHelper.saveName(model.name);
+        await PrefHelper.saveEmail(model.email);
+      }
+
+      return model;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print('AuthRepo.register error: ${e.response?.data}');
+      }
+      String? serverMsg;
+      dynamic errors;
+      if (e.response?.data is Map) {
+        serverMsg = e.response?.data?['message']?.toString();
+        errors = e.response?.data?['errors'];
+      }
+      
+      String errorMsg = serverMsg ?? 'حدث خطأ أثناء إنشاء الحساب';
+      if (errors != null && errors is Map && errors.isNotEmpty) {
+        final firstError = errors.values.first;
+        if (firstError is List && firstError.isNotEmpty) {
+          errorMsg = firstError.first.toString();
+        } else {
+          errorMsg = firstError.toString();
+        }
+      }
+      throw Exception(errorMsg);
     }
   }
 

@@ -7,6 +7,10 @@ class DioClient {
       baseUrl: "https://graduation.coderaeg.com",
       connectTimeout: Duration(seconds: 60),
       receiveTimeout: Duration(seconds: 60),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
     ),
   );
 
