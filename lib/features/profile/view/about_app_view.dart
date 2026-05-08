@@ -27,25 +27,10 @@ class AboutAppView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: kPrimryColor,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
-                    BoxShadow(
-                      color: kPrimryColor.withOpacity(0.3),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.medical_services_outlined,
-                  size: 60,
-                  color: Colors.white,
-                ),
+              Image.asset(
+                'assets/images/Simple Medical Health Logo.png',
+                width: 140,
+                height: 140,
               ),
               SizedBox(height: 30),
               Text(

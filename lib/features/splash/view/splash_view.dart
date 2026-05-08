@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/features/onboarding/onboarding_view.dart';
@@ -52,17 +53,10 @@ class _SplashViewState extends State<SplashView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App Logo (Using Icon as fallback since no asset image was found)
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: kPrimryColor.withOpacity(0.1),
-              ),
-              child: Icon(
-                Icons.health_and_safety,
-                size: 80, // Large size for logo
-                color: kPrimryColor,
-              ),
+            Image.asset(
+              'assets/images/Simple Medical Health Logo.png',
+              width: 240,
+              height: 240,
             ),
             SizedBox(height: 2.h),
 
@@ -70,17 +64,18 @@ class _SplashViewState extends State<SplashView> {
             Text(
               'الرعاية الطبية',
               style: TextStyle(
-                fontSize: 24, // Large font size
+                fontSize: 28, // Large font size
                 fontWeight: FontWeight.bold,
-                color: kPrimryColor,
+                letterSpacing: 0.5,
+                color: kTextColor,
                 fontFamily: 'Cairo',
               ),
             ),
 
-            SizedBox(height: 10.h),
+            SizedBox(height: 5.h),
 
             // Loading Indicator
-            CircularProgressIndicator(color: kPrimryColor),
+            SpinKitThreeBounce(color: kTextColor, size: 30),
           ],
         ),
       ),

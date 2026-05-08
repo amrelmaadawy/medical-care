@@ -12,12 +12,16 @@ class HomeCubit extends Cubit<HomeState> {
     emit(GetHomeDataLoading());
     try {
       HomeModel homeModel = await HomeApi().getHomeData();
-      emit(GetHomeDataSuccess(homeModel));
+      if (!isClosed) {
+        emit(GetHomeDataSuccess(homeModel));
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      emit(GetHomeDataError(e.toString()));
+      if (!isClosed) {
+        emit(GetHomeDataError(e.toString()));
+      }
     }
   }
 

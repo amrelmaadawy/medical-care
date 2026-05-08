@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_care/core/size_config.dart';
 import 'package:medical_care/core/utils/app_colors.dart';
 import 'package:medical_care/features/home/model_view/symbot_cubit/symbot_cubit.dart';
+import 'package:medical_care/features/home/model_view/home_cubit/home_cubit.dart';
 import 'package:medical_care/features/home/view/done_uploading_view.dart';
 import 'package:medical_care/features/home/view/upload_photo_view.dart';
 import 'package:medical_care/features/home/view/choose_the_sympotms.dart';
 import 'package:medical_care/features/home/view/patient_info_view.dart';
 import 'package:medical_care/features/history/view/report_view.dart';
-import 'package:medical_care/features/home/model_view/home_cubit/home_cubit.dart';
 import 'package:medical_care/features/history/model/assessments/assessment.dart';
 import 'package:medical_care/features/history/model/assessments/symptoms_selected.dart';
 
@@ -50,8 +50,11 @@ class _NewDiagnosisViewState extends State<NewDiagnosisView> {
           ),
         ),
       ),
-      body: BlocProvider(
-        create: (context) => SymbotCubit()..getSymptoms(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SymbotCubit()..getSymptoms()),
+          BlocProvider(create: (context) => HomeCubit()),
+        ],
         child: Builder(
           builder: (context) {
             return BlocListener<SymbotCubit, SymbotState>(
@@ -71,33 +74,49 @@ class _NewDiagnosisViewState extends State<NewDiagnosisView> {
                   );
                 } else if (state is SubmitDiagnosisSuccess) {
                   final data = state.result['data'];
-                  final analysis = data['ai_analysis'] ?? {};
-                  final percentage = analysis['confidence_percentage'];
+                  if (data != null) {
+                    final analysis = data['ai_analysis'] ?? {};
+                    final percentage = analysis['confidence_percentage'];
 
-                  final rawSymptoms = data['patient_data']?['reported_symptoms']?.toString() ?? '';
-                  final symptomsList = rawSymptoms.isNotEmpty ? rawSymptoms.split('،') : [];
+                    final rawSymptoms = data['patient_data']?['reported_symptoms']?.toString() ?? '';
+                    final symptomsList = rawSymptoms.isNotEmpty ? rawSymptoms.split('،') : [];
 
-                  final am = Assessment(
-                    id: data['id'],
-                    userId: data['user']?['id'],
-                    imagePath: data['image_url'] != null ? [data['image_url']] : null,
-                    reason: analysis['diagnosis'], 
-                    symptomsSelected: symptomsList.map((s) => SymptomsSelected(name: s.trim())).toList(),
-                    riskPercentage: percentage is int ? percentage : int.tryParse(percentage?.toString() ?? '0'),
-                    recommendation: analysis['recommendation'],
-                    createdAt: data['created_at']?.toString(),
-                    updatedAt: data['created_at']?.toString(),
-                  );
+                    final am = Assessment(
+                      id: data['id'],
+                      userId: data['user']?['id'],
+                      imagePath: data['image_url'] != null ? [data['image_url']] : null,
+                      reason: analysis['diagnosis'], 
+                      symptomsSelected: symptomsList.map((s) => SymptomsSelected(name: s.trim())).toList(),
+                      riskPercentage: percentage is int ? percentage : int.tryParse(percentage?.toString() ?? '0'),
+                      recommendation: analysis['recommendation'],
+                      createdAt: data['created_at']?.toString(),
+                      updatedAt: data['created_at']?.toString(),
+                    );
 
-                  Future.delayed(const Duration(seconds: 1), () {
-                    context.read<HomeCubit>().getHomeData();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ReportView(assessment: am),
+                    // Use a more reliable navigation approach
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted) {
+                        context.read<HomeCubit>().getHomeData();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => ReportView(assessment: am),
+                          ),
+                        );
+                      }
+                    });
+                  } else {
+                    // Handle case where data is null
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('حدث خطأ في استلام البيانات'),
+                        backgroundColor: Colors.red,
                       ),
                     );
-                  });
+                    pageController.previousPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    );
+                  }
                 }
               },
               child: SafeArea(
